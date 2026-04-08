@@ -11,7 +11,7 @@ export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-full">
       {/* Hero — full bleed, punchy */}
-      <section className="relative bg-emerald-600 px-6 pt-20 pb-16 overflow-hidden">
+      <section className="relative bg-emerald-600 px-6 pt-12 pb-16 overflow-hidden">
         {/* Subtle grid texture */}
         <div className="absolute inset-0 opacity-[0.07]" style={{
           backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
@@ -19,6 +19,12 @@ export default function LandingPage() {
         }} />
 
         <div className="relative max-w-md mx-auto">
+          <div className="flex items-center justify-between mb-8">
+            <span className="text-white font-bold text-xl">WeeCove</span>
+            <Link href="/login" className="text-emerald-200 text-sm font-medium hover:text-white transition-colors">
+              Log in
+            </Link>
+          </div>
           <p className="text-emerald-200 text-sm font-medium tracking-wide uppercase">Earn from your phone</p>
           <h1 className="text-[2.5rem] leading-[1.1] font-extrabold text-white mt-3">
             Earn extra cash.<br />Get paid fast.
