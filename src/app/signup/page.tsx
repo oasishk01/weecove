@@ -48,6 +48,9 @@ function SignUpForm() {
         throw new Error(data.error || "Something went wrong");
       }
 
+      const data = await res.json();
+      localStorage.setItem("weecove_user_id", data.id);
+      localStorage.setItem("weecove_referral_code", data.referral_code);
       router.push("/dashboard");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
