@@ -135,7 +135,7 @@ function SignUpForm() {
 
         <p className="mt-6 text-center text-zinc-400 text-sm">
           Already have an account?{" "}
-          <Link href="/dashboard" className="text-emerald-600 font-medium">
+          <Link href="/login" className="text-emerald-600 font-medium">
             Log in
           </Link>
         </p>
