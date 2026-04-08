@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BottomNav from "@/app/components/BottomNav";
+import { useAuth } from "@/lib/useAuth";
+import { getSupabase } from "@/lib/supabase";
 
 const MIN_CASHOUT = 40;
 
@@ -13,14 +15,35 @@ const METHODS = [
 ];
 
 export default function CashoutPage() {
-  const balance = 47.5;
+  const auth = useAuth();
+  const [balance, setBalance] = useState(0);
   const [method, setMethod] = useState<"paypal" | "gcash" | "wise" | "">("");
   const [paypalEmail, setPaypalEmail] = useState("");
   const [gcashNumber, setGcashNumber] = useState("");
-  const [amount, setAmount] = useState(balance >= MIN_CASHOUT ? balance.toString() : "");
+  const [amount, setAmount] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [pageLoading, setPageLoading] = useState(true);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (!auth) return;
+    const supabase = getSupabase();
+    supabase
+      .from("balances")
+      .select("available")
+      .eq("user_id", auth.id)
+      .single()
+      .then(({ data }) => {
+        if (data) {
+          setBalance(Number(data.available));
+          if (Number(data.available) >= MIN_CASHOUT) {
+            setAmount(data.available.toString());
+          }
+        }
+        setPageLoading(false);
+      });
+  }, [auth]);
 
   const canCashout = balance >= MIN_CASHOUT;
   const amountNum = parseFloat(amount) || 0;
@@ -30,7 +53,7 @@ export default function CashoutPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!isValid) return;
+    if (!isValid || !auth) return;
     setLoading(true);
     setError("");
     try {
@@ -38,6 +61,7 @@ export default function CashoutPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          user_id: auth.id,
           amount: amountNum, method,
           paypal_email: method === "paypal" ? paypalEmail : null,
           gcash_number: method === "gcash" ? gcashNumber : null,
@@ -53,6 +77,14 @@ export default function CashoutPage() {
     } finally {
       setLoading(false);
     }
+  }
+
+  if (!auth || pageLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-full">
+        <div className="w-8 h-8 border-4 border-emerald-200 border-t-emerald-600 rounded-full animate-spin" />
+      </div>
+    );
   }
 
   if (submitted) {

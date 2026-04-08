@@ -19,9 +19,9 @@ export default function LandingPage() {
         }} />
 
         <div className="relative max-w-md mx-auto">
-          <p className="text-emerald-200 text-sm font-medium tracking-wide uppercase">For overseas workers in Hong Kong</p>
+          <p className="text-emerald-200 text-sm font-medium tracking-wide uppercase">Earn from your phone</p>
           <h1 className="text-[2.5rem] leading-[1.1] font-extrabold text-white mt-3">
-            Earn money.<br />Send more home.
+            Earn extra cash.<br />Get paid fast.
           </h1>
           <p className="text-emerald-100 text-lg mt-4 leading-relaxed max-w-xs">
             Complete tasks on your phone. Get paid in HK$. Cash out to PayPal.

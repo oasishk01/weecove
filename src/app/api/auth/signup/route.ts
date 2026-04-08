@@ -15,6 +15,8 @@ export async function POST(request: NextRequest) {
     return Response.json({ error: "Name, email, and country are required" }, { status: 400 });
   }
 
+  const normalizedEmail = email.toLowerCase().trim();
+
   const supabase = createServerClient();
   const referralCode = generateReferralCode(name);
 
@@ -22,11 +24,11 @@ export async function POST(request: NextRequest) {
   const { data: existing } = await supabase
     .from("users")
     .select("id")
-    .eq("email", email)
+    .eq("email", normalizedEmail)
     .single();
 
   if (existing) {
-    return Response.json({ error: "Email already registered" }, { status: 409 });
+    return Response.json({ error: "Email already registered. Please log in instead." }, { status: 409 });
   }
 
   // Look up referrer if ref code provided
@@ -45,7 +47,7 @@ export async function POST(request: NextRequest) {
     .from("users")
     .insert({
       name,
-      email,
+      email: normalizedEmail,
       country,
       referral_code: referralCode,
       referred_by: referredBy,

@@ -3,18 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import BottomNav from "@/app/components/BottomNav";
-
-const MOCK_USER = { name: "Maria", country: "PH" as const };
-const MOCK_BALANCE = { available: 3.2, pending: 0.8 };
-const TASKS = [
-  { name: "Watch short video", payout: 0.15, tag: "Ad", color: "bg-pink-50 text-pink-600" },
-  { name: "Quick survey (2 min)", payout: 0.5, tag: "Survey", color: "bg-blue-50 text-blue-600" },
-  { name: "Try this app", payout: 2, tag: "App", color: "bg-amber-50 text-amber-600" },
-];
-const CASHOUTS = [
-  { name: "Grace T.", amount: 42 },
-  { name: "Ahmed R.", amount: 40 },
-];
+import { useAuth, logout } from "@/lib/useAuth";
+import { getSupabase } from "@/lib/supabase";
 
 const RATES: Record<string, { rate: number; symbol: string }> = {
   PH: { rate: 7.24, symbol: "₱" },
@@ -25,37 +15,89 @@ const RATES: Record<string, { rate: number; symbol: string }> = {
   OTHER: { rate: 0.128, symbol: "$" },
 };
 
-export default function DashboardPage() {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  if (!mounted) return null;
+interface UserProfile {
+  name: string;
+  country: string;
+  referral_code: string;
+}
 
-  const user = MOCK_USER;
-  const bal = MOCK_BALANCE;
-  const r = RATES[user.country] || RATES.OTHER;
-  const converted = Math.round(bal.available * r.rate);
+interface Balance {
+  available: number;
+  pending: number;
+}
+
+interface Transaction {
+  id: string;
+  type: string;
+  amount: number;
+  description: string;
+  created_at: string;
+}
+
+export default function DashboardPage() {
+  const auth = useAuth();
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [balance, setBalance] = useState<Balance>({ available: 0, pending: 0 });
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!auth) return;
+    const supabase = getSupabase();
+
+    async function load() {
+      const [userRes, balRes, txRes] = await Promise.all([
+        supabase.from("users").select("name, country, referral_code").eq("id", auth!.id).single(),
+        supabase.from("balances").select("available, pending").eq("user_id", auth!.id).single(),
+        supabase.from("transactions").select("id, type, amount, description, created_at").eq("user_id", auth!.id).order("created_at", { ascending: false }).limit(5),
+      ]);
+
+      if (userRes.data) setProfile(userRes.data);
+      if (balRes.data) setBalance(balRes.data);
+      if (txRes.data) setTransactions(txRes.data);
+      setLoading(false);
+    }
+    load();
+  }, [auth]);
+
+  if (!auth || loading) {
+    return (
+      <div className="flex items-center justify-center min-h-full">
+        <div className="w-8 h-8 border-4 border-emerald-200 border-t-emerald-600 rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  const name = profile?.name || "there";
+  const country = profile?.country || "OTHER";
+  const referralCode = profile?.referral_code || auth.referral_code;
+  const r = RATES[country] || RATES.OTHER;
+  const converted = Math.round(balance.available * r.rate);
 
   return (
     <div className="flex flex-col min-h-full bg-zinc-50">
-      {/* Balance header */}
       <header className="bg-emerald-600 px-6 pt-14 pb-10">
-        <p className="text-emerald-200 text-sm">{"Welcome back, " + user.name}</p>
+        <div className="flex items-center justify-between">
+          <p className="text-emerald-200 text-sm">{"Welcome back, " + name}</p>
+          <button onClick={logout} className="text-emerald-300 text-xs hover:text-white transition-colors">
+            Log out
+          </button>
+        </div>
         <div className="mt-3 flex items-baseline gap-2">
           <span className="text-white text-4xl font-extrabold tabular-nums">
-            {"HK$ " + bal.available.toFixed(2)}
+            {"HK$ " + balance.available.toFixed(2)}
           </span>
         </div>
         <p className="text-emerald-300 text-sm mt-1 tabular-nums">
           {r.symbol + " " + converted.toLocaleString()}
-          {bal.pending > 0 && (
+          {balance.pending > 0 && (
             <span className="text-emerald-400 ml-3">
-              {"+" + bal.pending.toFixed(0) + " pending"}
+              {"+" + balance.pending.toFixed(2) + " pending"}
             </span>
           )}
         </p>
       </header>
 
-      {/* Action buttons — overlapping header */}
       <div className="px-6 -mt-5">
         <div className="flex gap-3 max-w-lg mx-auto">
           <Link href="/earn" className="flex-1 bg-white rounded-xl py-3.5 text-center font-semibold text-emerald-700 shadow-md shadow-emerald-900/8 active:scale-[0.98] transition-transform">
@@ -74,23 +116,6 @@ export default function DashboardPage() {
       </div>
 
       <main className="flex-1 px-6 pt-6 pb-20 max-w-lg mx-auto w-full space-y-8">
-        {/* Tasks */}
-        <section>
-          <div className="flex items-baseline justify-between mb-3">
-            <h2 className="font-bold text-zinc-900">Available tasks</h2>
-            <Link href="/earn" className="text-emerald-600 text-sm font-medium">See all</Link>
-          </div>
-          {TASKS.map((t, i) => (
-            <Link key={i} href="/earn" className="flex items-center justify-between py-3.5 border-b border-zinc-100 last:border-0 active:bg-zinc-50 transition-colors -mx-1 px-1 rounded">
-              <div className="flex items-center gap-3">
-                <span className={"text-[11px] font-semibold px-2 py-0.5 rounded-full " + t.color}>{t.tag}</span>
-                <span className="text-zinc-800 font-medium text-[15px]">{t.name}</span>
-              </div>
-              <span className="font-semibold text-zinc-900 tabular-nums text-[15px]">{"HK$ " + t.payout}</span>
-            </Link>
-          ))}
-        </section>
-
         {/* Referral banner */}
         <section>
           <Link href="/referral" className="block bg-zinc-900 rounded-2xl p-5 active:bg-zinc-800 transition-colors">
@@ -102,25 +127,32 @@ export default function DashboardPage() {
               <svg className="w-6 h-6 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
             </div>
             <div className="mt-3 bg-zinc-800 rounded-lg px-3 py-2 text-zinc-300 text-sm font-mono">
-              {"weecove.com/r/" + user.name.toLowerCase()}
+              {"weecove.com/r/" + referralCode}
             </div>
           </Link>
         </section>
 
         {/* Recent activity */}
         <section>
-          <h2 className="font-bold text-zinc-900 mb-3">Recent cashouts</h2>
-          {CASHOUTS.map((c, i) => (
-            <div key={i} className="flex items-center justify-between py-3 border-b border-zinc-100 last:border-0">
-              <div className="flex items-center gap-3">
-                <div className="w-7 h-7 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 text-xs font-bold">
-                  {c.name.charAt(0)}
-                </div>
-                <span className="text-zinc-700 text-[15px]">{c.name}</span>
-              </div>
-              <span className="font-medium text-emerald-700 tabular-nums text-[15px]">{"HK$ " + c.amount}</span>
+          <h2 className="font-bold text-zinc-900 mb-3">Recent activity</h2>
+          {transactions.length === 0 ? (
+            <div className="text-center py-8">
+              <p className="text-zinc-400 text-sm">No activity yet. Start earning!</p>
+              <Link href="/earn" className="mt-3 inline-block text-emerald-600 text-sm font-medium">Go to Earn →</Link>
             </div>
-          ))}
+          ) : (
+            transactions.map((tx) => (
+              <div key={tx.id} className="flex items-center justify-between py-3 border-b border-zinc-100 last:border-0">
+                <div>
+                  <p className="text-zinc-800 text-[15px] font-medium">{tx.description}</p>
+                  <p className="text-zinc-400 text-xs mt-0.5">{new Date(tx.created_at).toLocaleDateString()}</p>
+                </div>
+                <span className={"font-semibold tabular-nums text-[15px] " + (tx.amount >= 0 ? "text-emerald-700" : "text-zinc-500")}>
+                  {(tx.amount >= 0 ? "+" : "") + "HK$ " + Math.abs(tx.amount).toFixed(2)}
+                </span>
+              </div>
+            ))
+          )}
         </section>
       </main>
 

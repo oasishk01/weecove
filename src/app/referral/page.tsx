@@ -1,20 +1,83 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BottomNav from "@/app/components/BottomNav";
+import { useAuth } from "@/lib/useAuth";
+import { getSupabase } from "@/lib/supabase";
+
+interface ReferralEntry {
+  name: string;
+  date: string;
+  earned: number;
+}
 
 export default function ReferralPage() {
-  const referralCode = "maria";
-  const referralLink = "weecove.com/r/" + referralCode;
-  const totalReferred = 3;
-  const totalEarned = 8.2;
+  const auth = useAuth();
+  const [referralCode, setReferralCode] = useState("");
+  const [totalReferred, setTotalReferred] = useState(0);
+  const [totalEarned, setTotalEarned] = useState(0);
+  const [referrals, setReferrals] = useState<ReferralEntry[]>([]);
   const [copied, setCopied] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const referrals = [
-    { name: "Rina M.", date: "Mar 15", earned: 3.2 },
-    { name: "Joy P.", date: "Mar 12", earned: 2.5 },
-    { name: "Abdul K.", date: "Mar 8", earned: 2.5 },
-  ];
+  useEffect(() => {
+    if (!auth) return;
+    const supabase = getSupabase();
+
+    async function load() {
+      // Get user's referral code
+      const { data: user } = await supabase
+        .from("users")
+        .select("referral_code")
+        .eq("id", auth!.id)
+        .single();
+
+      if (user) setReferralCode(user.referral_code);
+
+      // Get referrals
+      const { data: refs } = await supabase
+        .from("referrals")
+        .select("referred_id, created_at")
+        .eq("referrer_id", auth!.id);
+
+      if (refs && refs.length > 0) {
+        setTotalReferred(refs.length);
+
+        // Get referred users' names
+        const referredIds = refs.map(r => r.referred_id);
+        const { data: users } = await supabase
+          .from("users")
+          .select("id, name")
+          .in("id", referredIds);
+
+        const nameMap: Record<string, string> = {};
+        users?.forEach(u => { nameMap[u.id] = u.name; });
+
+        setReferrals(refs.map(r => ({
+          name: nameMap[r.referred_id] || "User",
+          date: new Date(r.created_at).toLocaleDateString(),
+          earned: 5,
+        })));
+      }
+
+      // Get total earned from referrals
+      const { data: commissions } = await supabase
+        .from("transactions")
+        .select("amount")
+        .eq("user_id", auth!.id)
+        .in("type", ["referral_bonus", "referral_commission"]);
+
+      if (commissions) {
+        const total = commissions.reduce((sum, tx) => sum + Number(tx.amount), 0);
+        setTotalEarned(total);
+      }
+
+      setLoading(false);
+    }
+    load();
+  }, [auth]);
+
+  const referralLink = "weecove.com/r/" + referralCode;
 
   function copyLink() {
     navigator.clipboard.writeText("https://" + referralLink);
@@ -32,6 +95,14 @@ export default function ReferralPage() {
     } else {
       copyLink();
     }
+  }
+
+  if (!auth || loading) {
+    return (
+      <div className="flex items-center justify-center min-h-full">
+        <div className="w-8 h-8 border-4 border-emerald-200 border-t-emerald-600 rounded-full animate-spin" />
+      </div>
+    );
   }
 
   return (
@@ -94,20 +165,26 @@ export default function ReferralPage() {
         {/* Referral list */}
         <div>
           <h2 className="font-bold text-zinc-900 mb-3">Your Referrals</h2>
-          {referrals.map((r, i) => (
-            <div key={i} className="flex items-center justify-between py-3.5 border-b border-zinc-100 last:border-0">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 text-xs font-bold">
-                  {r.name.charAt(0)}
-                </div>
-                <div>
-                  <p className="font-medium text-zinc-800">{r.name}</p>
-                  <p className="text-zinc-400 text-sm">{r.date}</p>
-                </div>
-              </div>
-              <span className="font-semibold text-emerald-700 tabular-nums">{"+ HK$ " + r.earned.toFixed(0)}</span>
+          {referrals.length === 0 ? (
+            <div className="text-center py-8">
+              <p className="text-zinc-400 text-sm">No referrals yet. Share your link to start earning!</p>
             </div>
-          ))}
+          ) : (
+            referrals.map((r, i) => (
+              <div key={i} className="flex items-center justify-between py-3.5 border-b border-zinc-100 last:border-0">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 text-xs font-bold">
+                    {r.name.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="font-medium text-zinc-800">{r.name}</p>
+                    <p className="text-zinc-400 text-sm">{r.date}</p>
+                  </div>
+                </div>
+                <span className="font-semibold text-emerald-700 tabular-nums">{"+ HK$ " + r.earned.toFixed(0)}</span>
+              </div>
+            ))
+          )}
         </div>
       </main>
 

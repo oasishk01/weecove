@@ -10,7 +10,7 @@ const geistSans = Geist({
 export const metadata: Metadata = {
   title: "WeeCove — Earn Money, Send More Home",
   description:
-    "Free app for overseas workers in Hong Kong to earn extra cash. Complete tasks, get paid via PayPal. No fees, ever.",
+    "Earn extra cash from your phone. Complete tasks, get paid in HK$ via PayPal. Free forever.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,

@@ -1,19 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import BottomNav from "@/app/components/BottomNav";
+import { useAuth } from "@/lib/useAuth";
 
 const BITLABS_TOKEN = "7da40458-f61d-47b0-92ee-5fb2a3640966";
 
 export default function EarnPage() {
+  const auth = useAuth();
   const [tab, setTab] = useState<"surveys" | "tasks">("surveys");
-  const [userId, setUserId] = useState<string>("");
-
-  useEffect(() => {
-    // Get user ID from localStorage (set during signup)
-    const uid = localStorage.getItem("weecove_user_id");
-    if (uid) setUserId(uid);
-  }, []);
+  const userId = auth?.id || "";
 
   const offerwallUrl = userId
     ? `https://web.bitlabs.ai/?token=${BITLABS_TOKEN}&uid=${userId}`
