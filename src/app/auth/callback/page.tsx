@@ -36,109 +36,30 @@ export default function AuthCallbackPage() {
       const email = authUser.email;
       const name = authUser.user_metadata?.full_name || authUser.user_metadata?.name || email?.split("@")[0] || "User";
 
-      // Check if this auth user already has a profile in our users table
-      const { data: existingUser } = await supabase
-        .from("users")
-        .select("id, referral_code")
-        .eq("auth_id", authUser.id)
-        .single();
-
-      if (existingUser) {
-        localStorage.setItem("weecove_user_id", existingUser.id);
-        localStorage.setItem("weecove_referral_code", existingUser.referral_code);
-        router.replace("/earn");
-        return;
-      }
-
-      // Also check by email (for users created before OAuth migration)
-      const { data: legacyUser } = await supabase
-        .from("users")
-        .select("id, referral_code")
-        .eq("email", email?.toLowerCase())
-        .single();
-
-      if (legacyUser) {
-        await supabase
-          .from("users")
-          .update({ auth_id: authUser.id })
-          .eq("id", legacyUser.id);
-
-        localStorage.setItem("weecove_user_id", legacyUser.id);
-        localStorage.setItem("weecove_referral_code", legacyUser.referral_code);
-        router.replace("/earn");
-        return;
-      }
-
-      // New user — create profile
-      const referralCode = name.toLowerCase().replace(/[^a-z0-9]/g, "") + Math.random().toString(36).substring(2, 6);
-
+      // Use server API to handle DB operations (bypasses RLS)
       const refCode = localStorage.getItem("weecove_ref");
-      let referredBy: string | null = null;
-      if (refCode) {
-        const { data: referrer } = await supabase
-          .from("users")
-          .select("id")
-          .eq("referral_code", refCode)
-          .single();
-        if (referrer) referredBy = referrer.id;
-        localStorage.removeItem("weecove_ref");
-      }
-
-      const { data: newUser, error: createError } = await supabase
-        .from("users")
-        .insert({
+      const res = await fetch("/api/auth/callback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
           auth_id: authUser.id,
+          email,
           name,
-          email: email?.toLowerCase(),
-          country: "OTHER",
-          referral_code: referralCode,
-          referred_by: referredBy,
-        })
-        .select("id, referral_code")
-        .single();
+          ref_code: refCode || undefined,
+        }),
+      });
 
-      if (createError || !newUser) {
+      if (!res.ok) {
         setStatus("Account setup failed. Please try again.");
         setTimeout(() => router.replace("/login"), 2000);
         return;
       }
 
-      await supabase.from("balances").insert({
-        user_id: newUser.id,
-        available: 0,
-        pending: 0,
-        withdrawn: 0,
-      });
+      const user = await res.json();
+      if (refCode) localStorage.removeItem("weecove_ref");
 
-      if (referredBy) {
-        const bonusAmount = 5;
-        await supabase.from("referrals").insert({
-          referrer_id: referredBy,
-          referred_id: newUser.id,
-          bonus_paid: true,
-        });
-        await supabase.rpc("add_balance", { p_user_id: referredBy, p_amount: bonusAmount });
-        await supabase.from("transactions").insert({
-          user_id: referredBy,
-          type: "referral_bonus",
-          amount: bonusAmount,
-          currency: "HKD",
-          status: "completed",
-          description: `Referral bonus: ${name} signed up`,
-        });
-        await supabase.rpc("add_balance", { p_user_id: newUser.id, p_amount: bonusAmount });
-        await supabase.from("transactions").insert({
-          user_id: newUser.id,
-          type: "referral_bonus",
-          amount: bonusAmount,
-          currency: "HKD",
-          status: "completed",
-          description: "Welcome bonus: signed up with referral link",
-        });
-      }
-
-      localStorage.setItem("weecove_user_id", newUser.id);
-      localStorage.setItem("weecove_referral_code", newUser.referral_code);
+      localStorage.setItem("weecove_user_id", user.id);
+      localStorage.setItem("weecove_referral_code", user.referral_code);
       router.replace("/earn");
     }
 
