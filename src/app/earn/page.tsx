@@ -263,19 +263,33 @@ export default function EarnPage() {
         ) : tab === "tasks" ? (
           <TaskBrowser userId={userId} />
         ) : tab === "surveys" ? (
-          <iframe
-            src={bitlabsUrl}
-            className="w-full border-0"
-            style={{ height: "calc(100vh - 180px)", minHeight: "500px" }}
-            allow="clipboard-write"
-          />
+          <div>
+            <div className="px-4 pt-3 pb-1">
+              <p className="text-xs text-zinc-400 bg-zinc-100 rounded-lg px-3 py-2">
+                Surveys match your profile. If one isn&apos;t available, try the next one — you&apos;ll usually find a match within a few tries.
+              </p>
+            </div>
+            <iframe
+              src={bitlabsUrl}
+              className="w-full border-0"
+              style={{ height: "calc(100vh - 220px)", minHeight: "500px" }}
+              allow="clipboard-write"
+            />
+          </div>
         ) : (
-          <iframe
-            src={ayetUrl}
-            className="w-full border-0"
-            style={{ height: "calc(100vh - 180px)", minHeight: "500px" }}
-            allow="clipboard-write"
-          />
+          <div>
+            <div className="px-4 pt-3 pb-1">
+              <p className="text-xs text-zinc-400 bg-zinc-100 rounded-lg px-3 py-2">
+                Polls are matched by country and profile. Some may not be available in your region — just skip and try the next one.
+              </p>
+            </div>
+            <iframe
+              src={ayetUrl}
+              className="w-full border-0"
+              style={{ height: "calc(100vh - 220px)", minHeight: "500px" }}
+              allow="clipboard-write"
+            />
+          </div>
         )}
       </main>
 
