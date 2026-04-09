@@ -207,16 +207,20 @@ async function fetchOffers(country?: string): Promise<CategorizedOffers> {
 }
 
 export async function GET(request: NextRequest) {
-  const country = request.nextUrl.searchParams.get("country") || undefined;
+  // Auto-detect country from Vercel's IP geolocation header, or use query param override
+  const country =
+    request.nextUrl.searchParams.get("country") ||
+    request.headers.get("x-vercel-ip-country") ||
+    undefined;
 
   try {
     const offers = await fetchOffers(country);
-    return Response.json(offers, {
+    return Response.json({ ...offers, detectedCountry: country || null }, {
       headers: { "Cache-Control": "public, max-age=600" },
     });
   } catch (err) {
     return Response.json(
-      { error: "Failed to fetch offers", signups: [], apps: [], premium: [], all: [], total: 0 },
+      { error: "Failed to fetch offers", signups: [], apps: [], premium: [], all: [], total: 0, detectedCountry: null },
       { status: 500 }
     );
   }

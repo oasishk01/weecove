@@ -32,6 +32,7 @@ interface OffersData {
   premium: Offer[];
   all: Offer[];
   total: number;
+  detectedCountry: string | null;
 }
 
 const TIER_CONFIG = {
@@ -89,6 +90,13 @@ function OfferCard({ offer, userId }: { offer: Offer; userId: string }) {
   );
 }
 
+const COUNTRY_NAMES: Record<string, string> = {
+  PH: "Philippines", ID: "Indonesia", PK: "Pakistan", NP: "Nepal",
+  IN: "India", HK: "Hong Kong", US: "United States", GB: "United Kingdom",
+  AU: "Australia", CA: "Canada", SG: "Singapore", MY: "Malaysia",
+  AE: "UAE", SA: "Saudi Arabia", QA: "Qatar", KW: "Kuwait",
+};
+
 function TaskBrowser({ userId }: { userId: string }) {
   const [offers, setOffers] = useState<OffersData | null>(null);
   const [filter, setFilter] = useState<TaskFilter>("all");
@@ -121,6 +129,14 @@ function TaskBrowser({ userId }: { userId: string }) {
 
   return (
     <div className="px-4 py-4 space-y-3">
+      {/* Country indicator */}
+      {offers?.detectedCountry && (
+        <div className="flex items-center gap-1.5 text-xs text-zinc-400">
+          <span>📍</span>
+          Showing tasks for {COUNTRY_NAMES[offers.detectedCountry] || offers.detectedCountry}
+        </div>
+      )}
+
       {/* Filter pills */}
       <div className="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4">
         {FILTER_CONFIG.map((f) => (

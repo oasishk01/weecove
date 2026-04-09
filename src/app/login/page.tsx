@@ -118,7 +118,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-xl bg-zinc-900 text-white font-medium text-base py-3.5 hover:bg-zinc-800 transition-colors disabled:opacity-50"
+            className="w-full rounded-xl bg-emerald-600 text-white font-semibold text-base py-3.5 hover:bg-emerald-700 transition-colors disabled:opacity-50"
           >
             {loading ? "Signing in..." : "Sign in with Email"}
           </button>
