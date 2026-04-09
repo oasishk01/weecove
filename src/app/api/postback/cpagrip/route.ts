@@ -2,10 +2,17 @@ import { type NextRequest } from "next/server";
 import { createServerClient } from "@/lib/supabase";
 
 // CPAGrip postback webhook
-// URL in CPAGrip: https://weecove.com/api/postback/cpagrip?user_id={tracking_id}&payout={payout}&offer_id={offer_id}
+// URL in CPAGrip: https://weecove.com/api/postback/cpagrip?secret=XXX&user_id={tracking_id}&payout={payout}&offer_id={offer_id}
 
 export async function GET(request: NextRequest) {
   const params = request.nextUrl.searchParams;
+
+  // Verify postback secret
+  const secret = params.get("secret");
+  if (!secret || secret !== process.env.POSTBACK_SECRET_CPAGRIP) {
+    return new Response("Unauthorized", { status: 401 });
+  }
+
   const userId = params.get("user_id");
   const payout = parseFloat(params.get("payout") || "0");
   const offerId = params.get("offer_id");

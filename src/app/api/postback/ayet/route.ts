@@ -17,9 +17,9 @@ export async function GET(request: NextRequest) {
     return new Response("Missing required parameters", { status: 400 });
   }
 
-  // Optional: verify request comes from ayeT via IP whitelist or secret param
+  // Verify postback secret
   const secret = params.get("secret");
-  if (process.env.AYET_POSTBACK_SECRET && secret !== process.env.AYET_POSTBACK_SECRET) {
+  if (!secret || secret !== process.env.POSTBACK_SECRET_AYET) {
     return new Response("Unauthorized", { status: 401 });
   }
 

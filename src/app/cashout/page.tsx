@@ -57,9 +57,11 @@ export default function CashoutPage() {
     setLoading(true);
     setError("");
     try {
+      const headers: Record<string, string> = { "Content-Type": "application/json" };
+      if (auth.token) headers["Authorization"] = `Bearer ${auth.token}`;
       const res = await fetch("/api/cashout", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify({
           user_id: auth.id,
           amount: amountNum, method,

@@ -1,14 +1,32 @@
 import { type NextRequest } from "next/server";
 import { createServerClient } from "@/lib/supabase";
+import { getAuthUser } from "@/lib/auth";
 
 const MIN_CASHOUT = 40;
 
 export async function POST(request: NextRequest) {
+  // Authenticate via Supabase session
+  const authUser = await getAuthUser(request);
   const body = await request.json();
-  const { user_id, amount, method, paypal_email, gcash_number } = body;
+  const { amount, method, paypal_email, gcash_number } = body;
 
-  // TODO: replace with auth session user_id
-  if (!user_id) {
+  // Get user_id from auth session, fallback to body for legacy users
+  let userId: string | null = null;
+
+  if (authUser) {
+    const supabase = createServerClient();
+    const { data: appUser } = await supabase
+      .from("users")
+      .select("id")
+      .eq("auth_id", authUser.authId)
+      .single();
+    if (appUser) userId = appUser.id;
+  }
+
+  // Fallback for legacy users (will be removed later)
+  if (!userId) userId = body.user_id;
+
+  if (!userId) {
     return Response.json({ error: "Not authenticated" }, { status: 401 });
   }
 
@@ -34,7 +52,7 @@ export async function POST(request: NextRequest) {
   const { data: balance } = await supabase
     .from("balances")
     .select("available")
-    .eq("user_id", user_id)
+    .eq("user_id", userId)
     .single();
 
   if (!balance || balance.available < amount) {
@@ -43,7 +61,7 @@ export async function POST(request: NextRequest) {
 
   // Deduct from available balance
   const { error: deductError } = await supabase.rpc("deduct_balance", {
-    p_user_id: user_id,
+    p_user_id: userId,
     p_amount: amount,
   });
 
@@ -55,7 +73,7 @@ export async function POST(request: NextRequest) {
   const { data: cashoutReq, error: cashoutError } = await supabase
     .from("cashout_requests")
     .insert({
-      user_id,
+      user_id: userId,
       amount,
       method,
       paypal_email: method === "paypal" ? paypal_email : null,
@@ -71,7 +89,7 @@ export async function POST(request: NextRequest) {
 
   // Create transaction record
   await supabase.from("transactions").insert({
-    user_id,
+    user_id: userId,
     type: "cashout",
     amount: -amount,
     currency: "HKD",

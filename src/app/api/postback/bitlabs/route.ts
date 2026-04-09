@@ -6,6 +6,12 @@ import { createServerClient } from "@/lib/supabase";
 // Params: uid, reward, currency, transaction_id
 
 export async function POST(request: NextRequest) {
+  // Verify postback secret
+  const secret = request.nextUrl.searchParams.get("secret") || request.headers.get("x-bitlabs-secret");
+  if (!secret || secret !== process.env.POSTBACK_SECRET_BITLABS) {
+    return new Response("Unauthorized", { status: 401 });
+  }
+
   const body = await request.json();
   const { uid, reward, currency, transaction_id } = body;
 
@@ -87,6 +93,13 @@ export async function POST(request: NextRequest) {
 // Also handle GET in case BitLabs sends GET requests
 export async function GET(request: NextRequest) {
   const params = request.nextUrl.searchParams;
+
+  // Verify postback secret
+  const secret = params.get("secret");
+  if (!secret || secret !== process.env.POSTBACK_SECRET_BITLABS) {
+    return new Response("Unauthorized", { status: 401 });
+  }
+
   const uid = params.get("uid");
   const reward = params.get("reward");
   const transaction_id = params.get("transaction_id");
@@ -98,7 +111,7 @@ export async function GET(request: NextRequest) {
 
   // Reuse POST logic by creating a fake request body
   const body = { uid, reward, currency, transaction_id };
-  const fakeRequest = new NextRequest(request.url, {
+  const fakeRequest = new NextRequest(new URL(request.url), {
     method: "POST",
     body: JSON.stringify(body),
   });

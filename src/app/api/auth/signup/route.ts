@@ -9,7 +9,7 @@ function generateReferralCode(name: string): string {
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  const { name, email, country, ref } = body;
+  const { name, email, country, ref, auth_id } = body;
 
   if (!name || !email || !country) {
     return Response.json({ error: "Name, email, and country are required" }, { status: 400 });
@@ -51,6 +51,7 @@ export async function POST(request: NextRequest) {
       country,
       referral_code: referralCode,
       referred_by: referredBy,
+      ...(auth_id ? { auth_id } : {}),
     })
     .select("id, referral_code")
     .single();

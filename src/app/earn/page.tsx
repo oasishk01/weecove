@@ -213,7 +213,7 @@ function TaskBrowser({ userId }: { userId: string }) {
 export default function EarnPage() {
   const auth = useAuth();
   const [tab, setTab] = useState<Tab>("tasks");
-  const userId = auth?.id || "";
+  const userId = auth?.id ?? "";
 
   const bitlabsUrl = userId
     ? `https://web.bitlabs.ai/?token=${BITLABS_TOKEN}&uid=${userId}`

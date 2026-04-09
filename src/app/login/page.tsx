@@ -9,6 +9,7 @@ import { getSupabase } from "@/lib/supabase";
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
   const [error, setError] = useState("");
@@ -35,20 +36,15 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+      const supabase = getSupabase();
+      const { error: authError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
       });
 
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || "Something went wrong");
-      }
+      if (authError) throw new Error(authError.message);
 
-      const data = await res.json();
-      localStorage.setItem("weecove_user_id", data.id);
-      localStorage.setItem("weecove_referral_code", data.referral_code);
+      // Session is now set — useAuth will pick it up
       router.push("/earn");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
@@ -94,7 +90,7 @@ export default function LoginPage() {
           <div className="flex-1 h-px bg-zinc-200" />
         </div>
 
-        {/* Email fallback */}
+        {/* Email + Password */}
         <form onSubmit={handleEmailLogin} className="space-y-4">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-zinc-700 mb-1.5">
@@ -111,6 +107,21 @@ export default function LoginPage() {
             />
           </div>
 
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-zinc-700 mb-1.5">
+              Password
+            </label>
+            <input
+              id="password"
+              type="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Your password"
+              className="w-full rounded-xl border border-zinc-200 px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+            />
+          </div>
+
           {error && (
             <p className="text-red-600 text-sm bg-red-50 rounded-lg px-4 py-2">{error}</p>
           )}
@@ -120,7 +131,7 @@ export default function LoginPage() {
             disabled={loading}
             className="w-full rounded-xl bg-emerald-600 text-white font-semibold text-base py-3.5 hover:bg-emerald-700 transition-colors disabled:opacity-50"
           >
-            {loading ? "Signing in..." : "Sign in with Email"}
+            {loading ? "Signing in..." : "Sign in"}
           </button>
         </form>
 

@@ -29,6 +29,7 @@ function SignUpForm() {
   const ref = searchParams.get("ref");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [country, setCountry] = useState("");
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
@@ -54,13 +55,40 @@ function SignUpForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters");
+      return;
+    }
+
     setLoading(true);
 
     try {
+      const supabase = getSupabase();
+
+      // Create Supabase auth user
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { full_name: name },
+        },
+      });
+
+      if (authError) throw new Error(authError.message);
+      if (!authData.user) throw new Error("Failed to create account");
+
+      // Create app profile via server API
       const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, country, ref }),
+        body: JSON.stringify({
+          name,
+          email,
+          country,
+          ref,
+          auth_id: authData.user.id,
+        }),
       });
 
       if (!res.ok) {
@@ -88,7 +116,7 @@ function SignUpForm() {
         </Link>
 
         <h1 className="text-3xl font-bold mt-8">Create your account</h1>
-        <p className="text-zinc-500 mt-2">10 seconds. No documents. Start earning today.</p>
+        <p className="text-zinc-500 mt-2">Start earning today. No documents needed.</p>
 
         {/* Google Sign-Up */}
         <button
@@ -143,6 +171,22 @@ function SignUpForm() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="maria@email.com"
+              className="w-full rounded-xl border border-zinc-200 px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="password" className="block text-sm font-medium text-zinc-700 mb-1.5">
+              Password
+            </label>
+            <input
+              id="password"
+              type="password"
+              required
+              minLength={6}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="At least 6 characters"
               className="w-full rounded-xl border border-zinc-200 px-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
             />
           </div>

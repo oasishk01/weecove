@@ -79,7 +79,7 @@ export default function DashboardPage() {
       <header className="bg-emerald-600 px-6 pt-14 pb-10">
         <div className="flex items-center justify-between">
           <p className="text-emerald-200 text-sm">{"Welcome back, " + name}</p>
-          <button onClick={logout} className="text-emerald-300 text-xs hover:text-white transition-colors">
+          <button onClick={() => logout()} className="text-emerald-300 text-xs hover:text-white transition-colors">
             Log out
           </button>
         </div>
