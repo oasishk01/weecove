@@ -148,6 +148,59 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Trust logos */}
+      <section className="px-6 py-10 border-t border-zinc-100">
+        <div className="max-w-3xl mx-auto">
+          <BlurFade delay={0.1}>
+            <p className="text-center text-xs font-medium text-zinc-400 uppercase tracking-widest mb-6">Partnered with trusted global platforms</p>
+            <div className="flex items-center justify-center gap-8 md:gap-12 flex-wrap">
+              {/* PayPal */}
+              <div className="flex items-center gap-1.5 opacity-60 hover:opacity-100 transition-opacity">
+                <svg viewBox="0 0 24 24" className="w-5 h-5 text-[#003087]" fill="currentColor">
+                  <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797H9.322c-.533 0-.988.393-1.07.92l-.848 5.36-.244 1.546a.641.641 0 0 1-.633.54l-.452-.36z"/>
+                </svg>
+                <span className="text-sm font-bold text-zinc-400">PayPal</span>
+              </div>
+              {/* Wise */}
+              <div className="flex items-center gap-1.5 opacity-60 hover:opacity-100 transition-opacity">
+                <svg viewBox="0 0 24 24" className="w-5 h-5 text-[#9FE870]" fill="currentColor">
+                  <path d="M12.5 3L20 8.5l-3 5.5-5-2-5 2L4 8.5 12.5 3zM12.5 6l-5 3.5 2 3.5 3-1 3 1 2-3.5L12.5 6z"/>
+                </svg>
+                <span className="text-sm font-bold text-zinc-400">Wise</span>
+              </div>
+              {/* BitLabs */}
+              <div className="flex items-center gap-1.5 opacity-60 hover:opacity-100 transition-opacity">
+                <svg viewBox="0 0 24 24" className="w-5 h-5 text-[#6366f1]" fill="currentColor">
+                  <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+                  <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+                  <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+                  <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+                </svg>
+                <span className="text-sm font-bold text-zinc-400">BitLabs</span>
+              </div>
+              {/* Google Play */}
+              <div className="flex items-center gap-1.5 opacity-60 hover:opacity-100 transition-opacity">
+                <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none">
+                  <path d="M3 20.5V3.5c0-.8.5-1.3 1-1.5l9.5 9.5L4 21c-.5-.2-1-.7-1-1.5z" fill="#4285F4"/>
+                  <path d="M17.5 14.5L13.5 11.5 4 21c.3.1.7.2 1 0l12.5-6.5z" fill="#34A853"/>
+                  <path d="M20 12c.5-.3.5-.7 0-1l-2.5-1.5L13.5 11.5l4 3 2.5-1.5z" fill="#FBBC04"/>
+                  <path d="M4 3c.3-.1.7-.2 1 0l12.5 6.5L13.5 11.5 4 3z" fill="#EA4335"/>
+                </svg>
+                <span className="text-sm font-bold text-zinc-400">Google Play</span>
+              </div>
+              {/* GCash */}
+              <div className="flex items-center gap-1.5 opacity-60 hover:opacity-100 transition-opacity">
+                <svg viewBox="0 0 24 24" className="w-5 h-5 text-[#007DFE]" fill="currentColor">
+                  <circle cx="12" cy="12" r="10"/>
+                  <text x="12" y="16" textAnchor="middle" fill="white" fontSize="10" fontWeight="bold">G</text>
+                </svg>
+                <span className="text-sm font-bold text-zinc-400">GCash</span>
+              </div>
+            </div>
+          </BlurFade>
+        </div>
+      </section>
+
       {/* How it works */}
       <section className="px-6 py-16 bg-zinc-50">
         <div className="max-w-3xl mx-auto">
