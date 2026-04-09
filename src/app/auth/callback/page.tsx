@@ -11,24 +11,36 @@ export default function AuthCallbackPage() {
   useEffect(() => {
     async function handleCallback() {
       const supabase = getSupabase();
-
-      // PKCE flow: exchange the code from URL for a session
       const url = new URL(window.location.href);
       const code = url.searchParams.get("code");
+      const errorParam = url.searchParams.get("error");
+      const errorDesc = url.searchParams.get("error_description");
+
+      // Check for OAuth error in URL
+      if (errorParam) {
+        setStatus(`OAuth error: ${errorParam} — ${errorDesc || "Unknown"}`);
+        return;
+      }
+
+      // PKCE flow: exchange the code for a session
       if (code) {
         const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
         if (exchangeError) {
-          setStatus("Sign-in failed. Redirecting...");
-          setTimeout(() => router.replace("/login"), 2000);
+          setStatus(`Code exchange failed: ${exchangeError.message}`);
           return;
         }
       }
 
-      const { data: { session }, error } = await supabase.auth.getSession();
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
 
-      if (error || !session) {
-        setStatus("Sign-in failed. Redirecting...");
-        setTimeout(() => router.replace("/login"), 2000);
+      if (sessionError) {
+        setStatus(`Session error: ${sessionError.message}`);
+        return;
+      }
+
+      if (!session) {
+        setStatus("No session found. No code in URL either. Redirecting...");
+        setTimeout(() => router.replace("/login"), 3000);
         return;
       }
 
@@ -50,8 +62,8 @@ export default function AuthCallbackPage() {
       });
 
       if (!res.ok) {
-        setStatus("Account setup failed. Please try again.");
-        setTimeout(() => router.replace("/login"), 2000);
+        const errData = await res.json().catch(() => ({}));
+        setStatus(`Server error: ${errData.error || res.status}`);
         return;
       }
 
@@ -68,9 +80,9 @@ export default function AuthCallbackPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white">
-      <div className="text-center">
+      <div className="text-center px-6">
         <div className="w-10 h-10 border-4 border-emerald-200 border-t-emerald-600 rounded-full animate-spin mx-auto" />
-        <p className="mt-4 text-zinc-500 text-sm">{status}</p>
+        <p className="mt-4 text-zinc-500 text-sm max-w-md break-all">{status}</p>
       </div>
     </div>
   );
