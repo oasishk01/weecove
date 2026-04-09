@@ -43,9 +43,8 @@ export const APPS: App[] = [
       "Fewer offers than established sites",
     ],
     verdict: "Best choice for Hong Kong-based users who want a simple, transparent earning app with fast payouts to PayPal or GCash.",
-    score: 9,
+    score: 7,
     url: "https://weecove.com/signup",
-    featured: true,
   },
   {
     slug: "freecash",

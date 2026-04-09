@@ -42,7 +42,8 @@ export default async function AppReviewPage({ params }: { params: Promise<{ slug
 
   const rank = APPS.findIndex((a) => a.slug === slug) + 1;
 
-  const jsonLd = {
+  // Only add Review schema for third-party apps (not self-review)
+  const jsonLd = app.slug === "weecove" ? null : {
     "@context": "https://schema.org",
     "@type": "Review",
     name: `${app.name} Review`,
@@ -70,7 +71,7 @@ export default async function AppReviewPage({ params }: { params: Promise<{ slug
 
   return (
     <div className="min-h-full bg-white">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      {jsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />}
       <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-zinc-100">
         <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-1">

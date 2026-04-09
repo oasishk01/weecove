@@ -7,12 +7,10 @@ const STEPS = [
   { step: "04", title: "Cash out to PayPal", desc: "Once you reach HK$40 (~$5 USD), request a cashout. We review and send it within 24-48 hours." },
 ];
 
-const CASHOUTS = [
-  { name: "Grace T.", amount: 43, method: "PayPal", ago: "2h" },
-  { name: "Ahmed R.", amount: 40, method: "PayPal", ago: "5h" },
-  { name: "Devi S.", amount: 51, method: "PayPal", ago: "8h" },
-  { name: "Rina M.", amount: 40, method: "GCash", ago: "12h" },
-  { name: "Raj K.", amount: 45, method: "PayPal", ago: "1d" },
+const CASHOUT_METHODS = [
+  { method: "PayPal", desc: "Available worldwide. Minimum HK$40." },
+  { method: "GCash", desc: "Philippines only. Minimum HK$40." },
+  { method: "Wise", desc: "Low-fee international transfer." },
 ];
 
 export default function HowItWorksPage() {
@@ -74,27 +72,18 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
-      {/* Cashout log */}
+      {/* Cashout methods */}
       <section className="px-6 py-14">
         <div className="max-w-md mx-auto">
-          <div className="flex items-baseline justify-between mb-6">
-            <h2 className="text-xl font-bold text-zinc-900">Recent cashouts</h2>
-            <span className="text-xs text-zinc-400">Live</span>
-          </div>
-          {CASHOUTS.map((c, i) => (
-            <div key={i} className="flex items-center justify-between py-3.5 border-b border-zinc-100 last:border-0">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 text-xs font-bold">
-                  {c.name.charAt(0)}
-                </div>
-                <div>
-                  <p className="font-medium text-zinc-800">{c.name}</p>
-                  <p className="text-zinc-400 text-xs">{"via " + c.method}</p>
-                </div>
+          <h2 className="text-xl font-bold text-zinc-900 mb-6">Cashout methods</h2>
+          {CASHOUT_METHODS.map((c, i) => (
+            <div key={i} className="flex items-center gap-4 py-4 border-b border-zinc-100 last:border-0">
+              <div className="w-10 h-10 rounded-xl bg-zinc-100 flex items-center justify-center text-zinc-500 text-lg font-bold">
+                {c.method.charAt(0)}
               </div>
-              <div className="text-right">
-                <span className="font-semibold tabular-nums">{"HK$ " + c.amount}</span>
-                <span className="text-zinc-400 text-xs ml-2">{c.ago}</span>
+              <div>
+                <p className="font-semibold text-zinc-900">{c.method}</p>
+                <p className="text-zinc-500 text-sm">{c.desc}</p>
               </div>
             </div>
           ))}
