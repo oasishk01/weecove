@@ -2,14 +2,13 @@ import { type NextRequest } from "next/server";
 import { createServerClient } from "@/lib/supabase";
 
 // CPAGrip postback webhook
-// URL to set in CPAGrip: https://weecove.com/api/postback/cpagrip?user_id={tracking_id}&payout={payout}&offer_id={offer_id}&lead_id={lead_id}
+// URL in CPAGrip: https://weecove.com/api/postback/cpagrip?user_id={tracking_id}&payout={payout}&offer_id={offer_id}
 
 export async function GET(request: NextRequest) {
   const params = request.nextUrl.searchParams;
   const userId = params.get("user_id");
   const payout = parseFloat(params.get("payout") || "0");
   const offerId = params.get("offer_id");
-  const leadId = params.get("lead_id");
 
   if (!userId || !payout || !offerId) {
     return new Response("Missing required parameters", { status: 400 });
@@ -17,17 +16,16 @@ export async function GET(request: NextRequest) {
 
   const supabase = createServerClient();
 
-  // Dedup by lead_id
-  if (leadId) {
-    const { data: existing } = await supabase
-      .from("transactions")
-      .select("id")
-      .eq("offer_id", `cpagrip_${leadId}`)
-      .single();
+  // Dedup by offer_id + user_id
+  const dedupKey = `cpagrip_${offerId}_${userId}`;
+  const { data: existing } = await supabase
+    .from("transactions")
+    .select("id")
+    .eq("offer_id", dedupKey)
+    .single();
 
-    if (existing) {
-      return new Response("Duplicate postback", { status: 200 });
-    }
+  if (existing) {
+    return new Response("Duplicate postback", { status: 200 });
   }
 
   // 70% to user, 30% to WeeCove
@@ -49,7 +47,7 @@ export async function GET(request: NextRequest) {
     currency: "HKD",
     status: "completed",
     description: `Completed CPAGrip offer #${offerId}`,
-    offer_id: `cpagrip_${leadId || offerId}`,
+    offer_id: dedupKey,
   });
 
   // Referral commission (10%)
@@ -73,7 +71,7 @@ export async function GET(request: NextRequest) {
         currency: "HKD",
         status: "completed",
         description: "10% commission from referral task",
-        offer_id: `ref_cpagrip_${leadId || offerId}`,
+        offer_id: `ref_${dedupKey}`,
       });
     }
   }
