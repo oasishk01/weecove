@@ -38,9 +38,10 @@ export async function GET(request: Request) {
     .single();
 
   if (existingUser) {
-    return NextResponse.redirect(
-      `${origin}/auth/success?uid=${existingUser.id}&rc=${existingUser.referral_code}`
-    );
+    const res = NextResponse.redirect(`${origin}/earn`);
+    res.cookies.set("weecove_user_id", existingUser.id, { path: "/", maxAge: 86400 * 365 });
+    res.cookies.set("weecove_referral_code", existingUser.referral_code, { path: "/", maxAge: 86400 * 365 });
+    return res;
   }
 
   // Check by email (legacy users)
@@ -52,9 +53,10 @@ export async function GET(request: Request) {
 
   if (legacyUser) {
     await db.from("users").update({ auth_id: authUser.id }).eq("id", legacyUser.id);
-    return NextResponse.redirect(
-      `${origin}/auth/success?uid=${legacyUser.id}&rc=${legacyUser.referral_code}`
-    );
+    const res = NextResponse.redirect(`${origin}/earn`);
+    res.cookies.set("weecove_user_id", legacyUser.id, { path: "/", maxAge: 86400 * 365 });
+    res.cookies.set("weecove_referral_code", legacyUser.referral_code, { path: "/", maxAge: 86400 * 365 });
+    return res;
   }
 
   // New user
@@ -83,7 +85,8 @@ export async function GET(request: Request) {
     withdrawn: 0,
   });
 
-  return NextResponse.redirect(
-    `${origin}/auth/success?uid=${newUser.id}&rc=${newUser.referral_code}`
-  );
+  const res = NextResponse.redirect(`${origin}/earn`);
+  res.cookies.set("weecove_user_id", newUser.id, { path: "/", maxAge: 86400 * 365 });
+  res.cookies.set("weecove_referral_code", newUser.referral_code, { path: "/", maxAge: 86400 * 365 });
+  return res;
 }
