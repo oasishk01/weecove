@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { AnimatedShinyText } from "@/components/ui/animated-shiny-text";
-import { NumberTicker } from "@/components/ui/number-ticker";
 import { BlurFade } from "@/components/ui/blur-fade";
 
 const FAQ = [
@@ -242,18 +241,14 @@ export default function LandingPage() {
                 </p>
                 <div className="mt-8 flex items-center gap-4">
                   <div className="flex-1 bg-white/15 backdrop-blur rounded-xl px-5 py-4 text-center">
-                    <p className="text-3xl font-bold">
-                      <NumberTicker value={70} className="text-white" />%
-                    </p>
+                    <p className="text-3xl font-bold text-white">70%</p>
                     <p className="text-emerald-200 text-sm mt-1">Goes to you</p>
                   </div>
                   <div className="text-emerald-300">
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5" /></svg>
                   </div>
                   <div className="flex-1 bg-white/10 backdrop-blur rounded-xl px-5 py-4 text-center">
-                    <p className="text-3xl font-bold text-emerald-200">
-                      <NumberTicker value={30} className="text-emerald-200" />%
-                    </p>
+                    <p className="text-3xl font-bold text-emerald-200">30%</p>
                     <p className="text-emerald-300 text-sm mt-1">Runs the platform</p>
                   </div>
                 </div>
