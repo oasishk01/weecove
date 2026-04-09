@@ -12,7 +12,18 @@ export default function AuthCallbackPage() {
     async function handleCallback() {
       const supabase = getSupabase();
 
-      // Supabase handles the OAuth code exchange automatically via the URL hash
+      // PKCE flow: exchange the code from URL for a session
+      const url = new URL(window.location.href);
+      const code = url.searchParams.get("code");
+      if (code) {
+        const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code);
+        if (exchangeError) {
+          setStatus("Sign-in failed. Redirecting...");
+          setTimeout(() => router.replace("/login"), 2000);
+          return;
+        }
+      }
+
       const { data: { session }, error } = await supabase.auth.getSession();
 
       if (error || !session) {
@@ -33,7 +44,6 @@ export default function AuthCallbackPage() {
         .single();
 
       if (existingUser) {
-        // Existing user — store and go to earn
         localStorage.setItem("weecove_user_id", existingUser.id);
         localStorage.setItem("weecove_referral_code", existingUser.referral_code);
         router.replace("/earn");
@@ -48,7 +58,6 @@ export default function AuthCallbackPage() {
         .single();
 
       if (legacyUser) {
-        // Link auth_id to existing user
         await supabase
           .from("users")
           .update({ auth_id: authUser.id })
@@ -63,7 +72,6 @@ export default function AuthCallbackPage() {
       // New user — create profile
       const referralCode = name.toLowerCase().replace(/[^a-z0-9]/g, "") + Math.random().toString(36).substring(2, 6);
 
-      // Check for referral code in localStorage (set during /r/[code] visit)
       const refCode = localStorage.getItem("weecove_ref");
       let referredBy: string | null = null;
       if (refCode) {
@@ -82,7 +90,7 @@ export default function AuthCallbackPage() {
           auth_id: authUser.id,
           name,
           email: email?.toLowerCase(),
-          country: "OTHER", // Can be updated later in settings
+          country: "OTHER",
           referral_code: referralCode,
           referred_by: referredBy,
         })
@@ -95,7 +103,6 @@ export default function AuthCallbackPage() {
         return;
       }
 
-      // Create initial balance
       await supabase.from("balances").insert({
         user_id: newUser.id,
         available: 0,
@@ -103,7 +110,6 @@ export default function AuthCallbackPage() {
         withdrawn: 0,
       });
 
-      // Handle referral bonus
       if (referredBy) {
         const bonusAmount = 5;
         await supabase.from("referrals").insert({
