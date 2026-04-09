@@ -51,7 +51,7 @@ function SignUpForm() {
       const data = await res.json();
       localStorage.setItem("weecove_user_id", data.id);
       localStorage.setItem("weecove_referral_code", data.referral_code);
-      router.push("/dashboard");
+      router.push("/earn");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     } finally {

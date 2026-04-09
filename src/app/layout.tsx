@@ -17,6 +17,10 @@ export const metadata: Metadata = {
     statusBarStyle: "default",
     title: "WeeCove",
   },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export const viewport: Viewport = {
