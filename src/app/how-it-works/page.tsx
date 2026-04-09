@@ -1,4 +1,10 @@
 import Link from "next/link";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "How WeeCove Works — Earn Money from Surveys & Tasks",
+  description: "Companies pay us to find users. We share 70% with you. Cash out from HK$40 via PayPal.",
+};
 
 const STEPS = [
   { step: "01", title: "Companies pay for users", desc: "Game studios, survey platforms, and app makers pay money to find people who will try their products." },

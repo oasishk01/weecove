@@ -286,18 +286,21 @@ export default function EarnPage() {
 
 function SignupPrompt() {
   return (
-    <div className="flex flex-col items-center justify-center py-20 px-6 text-center">
-      <div className="text-4xl mb-4">🦦</div>
-      <h2 className="text-lg font-bold text-zinc-900">Sign up to start earning</h2>
-      <p className="text-zinc-500 text-sm mt-1 max-w-xs">
-        Create a free account to access tasks and earn money
+    <div className="flex flex-col items-center justify-center py-16 px-6 text-center">
+      <div className="text-5xl mb-4">🦦</div>
+      <h2 className="text-xl font-bold text-zinc-900">Sign up to start earning</h2>
+      <p className="text-zinc-500 text-sm mt-2 max-w-xs leading-relaxed">
+        Create a free account to access hundreds of tasks and earn money from your phone.
       </p>
       <a
         href="/signup"
-        className="mt-4 bg-emerald-600 text-white font-semibold rounded-xl px-6 py-3 hover:bg-emerald-700 transition-colors"
+        className="mt-6 bg-emerald-600 text-white font-semibold rounded-xl px-8 py-3.5 hover:bg-emerald-700 transition-colors"
       >
         Sign Up Free
       </a>
+      <p className="mt-4 text-zinc-400 text-xs">
+        Already have an account? <a href="/login" className="text-emerald-600 font-medium">Log in</a>
+      </p>
     </div>
   );
 }

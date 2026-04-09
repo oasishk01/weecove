@@ -67,8 +67,8 @@ export default function LandingPage() {
             <Image src="/otter-head.png" alt="" width={40} height={34} className="h-7 w-auto" />
             <span className="text-emerald-600 font-bold text-lg tracking-tight">WeeCove</span>
           </Link>
-          <div className="flex items-center gap-4">
-            <Link href="/apps" className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
+          <div className="flex items-center gap-2 sm:gap-4">
+            <Link href="/apps" className="hidden sm:block text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
               Apps
             </Link>
             <Link href="/login" className="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">
@@ -76,9 +76,9 @@ export default function LandingPage() {
             </Link>
             <Link
               href="/signup"
-              className="text-sm font-medium bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition-colors"
+              className="text-sm font-medium bg-emerald-600 text-white px-3 sm:px-4 py-2 rounded-lg hover:bg-emerald-700 transition-colors"
             >
-              Sign up free
+              Sign up
             </Link>
           </div>
         </div>
