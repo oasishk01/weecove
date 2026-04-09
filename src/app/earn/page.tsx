@@ -129,14 +129,6 @@ function TaskBrowser({ userId }: { userId: string }) {
 
   return (
     <div className="px-4 py-4 space-y-3">
-      {/* Country indicator */}
-      {offers?.detectedCountry && (
-        <div className="flex items-center gap-1.5 text-xs text-zinc-400">
-          <span>📍</span>
-          Showing tasks for {COUNTRY_NAMES[offers.detectedCountry] || offers.detectedCountry}
-        </div>
-      )}
-
       {/* Filter pills */}
       <div className="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4">
         {FILTER_CONFIG.map((f) => (

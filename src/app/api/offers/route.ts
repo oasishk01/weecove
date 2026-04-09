@@ -162,9 +162,8 @@ async function fetchOffers(country?: string): Promise<CategorizedOffers> {
     user_id: CPAGRIP_USER_ID,
     key: CPAGRIP_KEY,
     showall: "yes",
-    limit: "200",
+    limit: "500",
   });
-  if (country) params.set("country", country);
 
   const res = await fetch(`${FEED_BASE}?${params}`, {
     headers: { "User-Agent": "WeeCove/1.0" },
@@ -207,20 +206,16 @@ async function fetchOffers(country?: string): Promise<CategorizedOffers> {
 }
 
 export async function GET(request: NextRequest) {
-  // Auto-detect country from Vercel's IP geolocation header, or use query param override
-  const country =
-    request.nextUrl.searchParams.get("country") ||
-    request.headers.get("x-vercel-ip-country") ||
-    undefined;
-
+  // Show ALL offers from all countries — no country filter
+  // Translation to English is handled by translateBatch()
   try {
-    const offers = await fetchOffers(country);
-    return Response.json({ ...offers, detectedCountry: country || null }, {
+    const offers = await fetchOffers();
+    return Response.json(offers, {
       headers: { "Cache-Control": "public, max-age=600" },
     });
   } catch (err) {
     return Response.json(
-      { error: "Failed to fetch offers", signups: [], apps: [], premium: [], all: [], total: 0, detectedCountry: null },
+      { error: "Failed to fetch offers", signups: [], apps: [], premium: [], all: [], total: 0 },
       { status: 500 }
     );
   }
