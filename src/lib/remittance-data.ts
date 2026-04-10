@@ -29,6 +29,10 @@ export const MID_MARKET_RATES: Record<string, number> = {
   "HKD-INR": 10.95,
   "HKD-CNY": 0.8719,  // verified from Wise 2026-04-10
   "HKD-TWD": 4.18,
+  "HKD-JPY": 18.55,
+  "HKD-KRW": 184.5,
+  "HKD-THB": 4.42,
+  "HKD-GBP": 0.0985,
 };
 
 export function getProviderLogo(domain: string, size = 64) {
@@ -51,6 +55,10 @@ export const PROVIDERS: Provider[] = [
       { from: "HKD", to: "INR", rate: 10.95, fee: 80, markup: 0.0, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "CNY", rate: 0.8719, fee: 122, markup: 0.0, speed: "Seconds", method: "Alipay / WeChat / Bank", updatedAt: "2026-04-10" },
       { from: "HKD", to: "TWD", rate: 4.18, fee: 75, markup: 0.0, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "JPY", rate: 18.55, fee: 65, markup: 0.0, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "KRW", rate: 184.5, fee: 65, markup: 0.0, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "THB", rate: 4.42, fee: 65, markup: 0.0, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "GBP", rate: 0.0985, fee: 55, markup: 0.0, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
     ],
   },
   {
@@ -67,6 +75,10 @@ export const PROVIDERS: Provider[] = [
       { from: "HKD", to: "INR", rate: 10.50, fee: 0, markup: 4.1, speed: "Minutes", method: "Cash pickup", updatedAt: "2026-04-10" },
       { from: "HKD", to: "CNY", rate: 0.835, fee: 0, markup: 4.2, speed: "Minutes", method: "Bank / Cash", updatedAt: "2026-04-10" },
       { from: "HKD", to: "TWD", rate: 4.01, fee: 0, markup: 4.1, speed: "Minutes", method: "Cash pickup", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "JPY", rate: 17.80, fee: 0, markup: 4.0, speed: "Minutes", method: "Cash pickup", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "KRW", rate: 177.0, fee: 0, markup: 4.1, speed: "Minutes", method: "Cash pickup", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "THB", rate: 4.24, fee: 0, markup: 4.1, speed: "Minutes", method: "Cash pickup", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "GBP", rate: 0.0945, fee: 0, markup: 4.1, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
     ],
   },
   {
@@ -83,6 +95,10 @@ export const PROVIDERS: Provider[] = [
       { from: "HKD", to: "INR", rate: 10.82, fee: 15, markup: 1.2, speed: "Minutes", method: "Bank / UPI", updatedAt: "2026-04-10" },
       { from: "HKD", to: "CNY", rate: 0.860, fee: 20, markup: 1.4, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "TWD", rate: 4.12, fee: 20, markup: 1.4, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "JPY", rate: 18.32, fee: 15, markup: 1.2, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "KRW", rate: 182.2, fee: 15, markup: 1.2, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "THB", rate: 4.36, fee: 15, markup: 1.4, speed: "1-2 days", method: "Bank / PromptPay", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "GBP", rate: 0.0972, fee: 15, markup: 1.3, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
     ],
   },
   {
@@ -99,6 +115,10 @@ export const PROVIDERS: Provider[] = [
       { from: "HKD", to: "INR", rate: 10.75, fee: 20, markup: 1.8, speed: "1 day", method: "Bank / UPI", updatedAt: "2026-04-10" },
       { from: "HKD", to: "CNY", rate: 0.855, fee: 25, markup: 1.9, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "TWD", rate: 4.10, fee: 25, markup: 1.9, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "JPY", rate: 18.20, fee: 20, markup: 1.9, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "KRW", rate: 181.0, fee: 20, markup: 1.9, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "THB", rate: 4.34, fee: 20, markup: 1.8, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "GBP", rate: 0.0967, fee: 20, markup: 1.8, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
     ],
   },
   {
@@ -115,6 +135,10 @@ export const PROVIDERS: Provider[] = [
       { from: "HKD", to: "INR", rate: 10.88, fee: 0, markup: 0.6, speed: "1-3 days", method: "Bank transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "CNY", rate: 0.866, fee: 0, markup: 0.7, speed: "1-3 days", method: "Bank transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "TWD", rate: 4.15, fee: 0, markup: 0.7, speed: "1-3 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "JPY", rate: 18.42, fee: 0, markup: 0.7, speed: "1-3 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "KRW", rate: 183.2, fee: 0, markup: 0.7, speed: "1-3 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "THB", rate: 4.39, fee: 0, markup: 0.7, speed: "1-3 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "GBP", rate: 0.0978, fee: 0, markup: 0.7, speed: "1-3 days", method: "Bank transfer", updatedAt: "2026-04-10" },
     ],
   },
   {
@@ -131,6 +155,10 @@ export const PROVIDERS: Provider[] = [
       { from: "HKD", to: "INR", rate: 10.91, fee: 5, markup: 0.4, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "CNY", rate: 0.868, fee: 5, markup: 0.5, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "TWD", rate: 4.16, fee: 5, markup: 0.5, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "JPY", rate: 18.48, fee: 5, markup: 0.4, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "KRW", rate: 183.8, fee: 5, markup: 0.4, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "THB", rate: 4.40, fee: 5, markup: 0.5, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "GBP", rate: 0.0981, fee: 5, markup: 0.4, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
     ],
   },
   // --- HK Local ---
@@ -148,6 +176,10 @@ export const PROVIDERS: Provider[] = [
       { from: "HKD", to: "INR", rate: 10.40, fee: 150, markup: 5.0, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "CNY", rate: 0.850, fee: 100, markup: 2.5, speed: "1-2 days", method: "Wire transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "TWD", rate: 3.98, fee: 150, markup: 4.8, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "JPY", rate: 17.70, fee: 100, markup: 4.6, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "KRW", rate: 176.0, fee: 100, markup: 4.6, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "THB", rate: 4.22, fee: 100, markup: 4.5, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "GBP", rate: 0.0942, fee: 100, markup: 4.4, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
     ],
   },
   {
@@ -164,6 +196,10 @@ export const PROVIDERS: Provider[] = [
       { from: "HKD", to: "INR", rate: 10.38, fee: 120, markup: 5.2, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "CNY", rate: 0.862, fee: 0, markup: 1.2, speed: "Same day", method: "BoC cross-border", updatedAt: "2026-04-10" },
       { from: "HKD", to: "TWD", rate: 3.95, fee: 120, markup: 5.5, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "JPY", rate: 17.65, fee: 80, markup: 4.9, speed: "1-3 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "KRW", rate: 175.5, fee: 80, markup: 4.9, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "THB", rate: 4.20, fee: 80, markup: 5.0, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "GBP", rate: 0.0940, fee: 80, markup: 4.6, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
     ],
   },
   {
@@ -180,6 +216,10 @@ export const PROVIDERS: Provider[] = [
       { from: "HKD", to: "INR", rate: 10.35, fee: 150, markup: 5.5, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "CNY", rate: 0.848, fee: 65, markup: 2.7, speed: "1-2 days", method: "Wire transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "TWD", rate: 3.96, fee: 150, markup: 5.3, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "JPY", rate: 17.68, fee: 100, markup: 4.7, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "KRW", rate: 175.8, fee: 100, markup: 4.7, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "THB", rate: 4.21, fee: 100, markup: 4.8, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "GBP", rate: 0.0941, fee: 100, markup: 4.5, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
     ],
   },
   {
