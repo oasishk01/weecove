@@ -7,6 +7,7 @@ import { StatsCounter, TodayCounter } from "@/components/StatsCounter";
 import { LiveClock } from "@/components/LiveClock";
 import { RateComparisonTable } from "@/components/RateComparisonTable";
 import { useI18n, LanguageToggle } from "@/lib/i18n";
+import { RateAlert } from "@/components/RateAlert";
 
 export default function LandingPage() {
   const { t } = useI18n();
@@ -38,6 +39,9 @@ export default function LandingPage() {
             <TodayCounter />
           </div>
           <RateComparisonTable from="HKD" to="CNY" defaultAmount={10000} showCorridorPicker />
+          <div className="mt-4">
+            <RateAlert />
+          </div>
         </div>
       </section>
 

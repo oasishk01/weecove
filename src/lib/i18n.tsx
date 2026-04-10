@@ -42,6 +42,14 @@ const translations: Record<string, Record<Locale, string>> = {
   "table.compare": { en: "See details →", zh: "睇詳情 →" },
   "table.disclaimer": { en: "Rates shown for reference, updated regularly. WeeCove is independent, not owned by any provider.", zh: "匯率僅供參考，定期更新。WeeCove 係獨立嘅，唔屬於任何匯款公司。" },
 
+  // Rate Alert
+  "alert.title": { en: "Get notified when rates drop", zh: "匯率跌咗即刻通知你" },
+  "alert.sub": { en: "We check daily. You send at the best time.", zh: "我哋每日 check。你喺最抵嗰刻先匯。" },
+  "alert.placeholder": { en: "Your email", zh: "你嘅 email" },
+  "alert.button": { en: "Notify me", zh: "通知我" },
+  "alert.done": { en: "You're in. We'll email you when rates drop.", zh: "搞掂。匯率跌咗會 email 你。" },
+  "alert.privacy": { en: "No spam. Unsubscribe anytime. We only send rate alerts.", zh: "冇垃圾郵件。隨時退訂。我哋只 send 匯率通知。" },
+
   // Clock
   "clock.checked": { en: "Last checked", zh: "上次更新" },
 };
