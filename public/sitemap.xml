@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://weecove.com/</loc><priority>1.0</priority></url>
-  <url><loc>https://weecove.com/signup</loc><priority>0.9</priority></url>
-  <url><loc>https://weecove.com/login</loc><priority>0.7</priority></url>
-  <url><loc>https://weecove.com/how-it-works</loc><priority>0.8</priority></url>
-  <url><loc>https://weecove.com/apps</loc><priority>0.8</priority></url>
-  <url><loc>https://weecove.com/apps/weecove</loc><priority>0.7</priority></url>
-  <url><loc>https://weecove.com/apps/freecash</loc><priority>0.7</priority></url>
-  <url><loc>https://weecove.com/apps/swagbucks</loc><priority>0.7</priority></url>
-  <url><loc>https://weecove.com/apps/honeygain</loc><priority>0.7</priority></url>
-  <url><loc>https://weecove.com/apps/ysense</loc><priority>0.7</priority></url>
-  <url><loc>https://weecove.com/apps/mistplay</loc><priority>0.7</priority></url>
-  <url><loc>https://weecove.com/apps/compare</loc><priority>0.7</priority></url>
   <url><loc>https://weecove.com/compare/wise-remittance</loc><priority>0.9</priority></url>
   <url><loc>https://weecove.com/compare/hong-kong-remittance</loc><priority>0.9</priority></url>
   <url><loc>https://weecove.com/compare/send-money-philippines</loc><priority>0.8</priority></url>

@@ -8,17 +8,11 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "WeeCove — Earn Money, Send More Home",
+  title: "WeeCove — 香港匯款比較 | HK Remittance Comparison",
   description:
-    "Earn extra cash from your phone. Complete tasks, get paid in HK$ via PayPal. Free forever.",
+    "獨立匯款比較工具。比較 Wise、Western Union、Remitly 嘅手續費同匯率，搵到最平嘅匯款方法。Independent remittance comparison for Hong Kong.",
   verification: {
     google: "s7HY1_X3uIAsp5RrTs4PlT0NJ7wM-Mb6sj2JTM2m0dQ",
-  },
-  manifest: "/manifest.json",
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "default",
-    title: "WeeCove",
   },
   icons: {
     icon: "/favicon.ico",
