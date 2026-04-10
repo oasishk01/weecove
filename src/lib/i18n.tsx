@@ -11,9 +11,9 @@ const translations: Record<string, Record<Locale, string>> = {
 
   // Home
   "home.badge": { en: "6 providers compared for you", zh: "已為你比較 6 間匯款平台" },
-  "home.hero1": { en: "Send HK$10,000 home", zh: "匯 HK$10,000 返屋企" },
-  "home.hero2": { en: "Your family gets ₱2,816 more", zh: "屋企人多收 ₱2,816" },
-  "home.sub": { en: "Same money, different providers, different amount received. See which one gives your family the most.", zh: "同一筆錢，唔同平台，收到嘅金額可以差好遠。即刻睇邊間最抵。" },
+  "home.hero1": { en: "Send HK$10,000 overseas", zh: "匯 HK$10,000 去海外" },
+  "home.hero2": { en: "Save up to ₱2,816", zh: "慳高達 ₱2,816" },
+  "home.sub": { en: "Same amount, different providers, different result. See which one gives you the most.", zh: "同一筆錢，唔同平台，結果可以差好遠。即刻睇邊間最抵。" },
   "home.cta1": { en: "Compare Rates Now", zh: "即時比較匯率" },
   "home.cta2": { en: "🇵🇭 Send to Philippines", zh: "🇵🇭 匯去菲律賓" },
   "home.corridors": { en: "Popular corridors", zh: "熱門走廊" },
@@ -21,12 +21,12 @@ const translations: Record<string, Record<Locale, string>> = {
   "home.compare": { en: "Compare rates →", zh: "比較匯率 →" },
   "home.why": { en: "Why WeeCove?", zh: "點解用 WeeCove？" },
   "home.independent": { en: "Independent", zh: "獨立" },
-  "home.independent.desc": { en: "Not owned by any provider. Whoever gives your family the most money, ranks first.", zh: "唔屬於任何匯款公司。邊間畀屋企人收到最多，排最高。" },
+  "home.independent.desc": { en: "Not owned by any provider. Whoever gives you the most, ranks first.", zh: "唔屬於任何匯款公司。邊間最抵，排最高。" },
   "home.transparent": { en: "Transparent", zh: "透明" },
   "home.transparent.desc": { en: "No hidden fees. You see exactly what you pay and what arrives.", zh: "冇隱藏收費。你付幾多、到幾多，一目了然。" },
   "home.realtime": { en: "Quick", zh: "快捷" },
   "home.realtime.desc": { en: "Enter your amount, pick a country, see results instantly.", zh: "輸入金額、揀國家、即刻出結果。" },
-  "home.warning": { en: "Some comparison sites are owned by money transfer companies. WeeCove is fully independent. Our only criterion: who gives your family the most.", zh: "有啲比較網站其實係匯款公司擁有嘅。WeeCove 完全獨立。我哋只睇一樣嘢：邊間畀屋企人收到最多。" },
+  "home.warning": { en: "Some comparison sites are owned by money transfer companies. WeeCove is fully independent. Our only criterion: who gives you the best rate.", zh: "有啲比較網站其實係匯款公司擁有嘅。WeeCove 完全獨立。我哋只睇一樣嘢：邊間最抵。" },
   "home.providers": { en: "Data from official provider websites", zh: "資料來源：各平台官方網站" },
 
   // Stats
@@ -36,8 +36,8 @@ const translations: Record<string, Record<Locale, string>> = {
 
   // Table
   "table.yousend": { en: "You send", zh: "你匯" },
-  "table.savings": { en: "Your family receives more when you pick the right one", zh: "揀啱平台，屋企人收多" },
-  "table.best": { en: "Most received", zh: "收到最多" },
+  "table.savings": { en: "You save up to", zh: "最多慳" },
+  "table.best": { en: "Best rate", zh: "最抵" },
   "table.sendnow": { en: "Send with this →", zh: "用呢間匯 →" },
   "table.compare": { en: "See details →", zh: "睇詳情 →" },
   "table.disclaimer": { en: "Rates shown for reference, updated regularly. WeeCove is independent, not owned by any provider.", zh: "匯率僅供參考，定期更新。WeeCove 係獨立嘅，唔屬於任何匯款公司。" },

@@ -1,13 +1,12 @@
-// Remittance provider data — manually updated weekly
-// Last updated: 2026-04-10
-// Source: checked each provider's website for HKD corridors
+// Remittance provider data
+// Last verified: 2026-04-10 (Wise rates from wise.com, others estimated from provider sites)
 
 export interface Corridor {
   from: string;
   to: string;
-  rate: number;       // amount received per 1 unit source (e.g. 1 HKD = 7.25 PHP)
-  fee: number;        // flat fee in source currency
-  markup: number;     // % above mid-market rate
+  rate: number;
+  fee: number;
+  markup: number;
   speed: string;
   method: string;
   updatedAt: string;
@@ -16,39 +15,42 @@ export interface Corridor {
 export interface Provider {
   slug: string;
   name: string;
-  domain: string;      // for favicon lookup
-  brandColor: string;  // hex color fallback
+  domain: string;
+  brandColor: string;
   tagline: string;
   affiliateUrl: string;
   trustpilot: string;
   corridors: Corridor[];
 }
 
-// Google Favicon API — returns any site's icon
+export const MID_MARKET_RATES: Record<string, number> = {
+  "HKD-PHP": 7.6516,  // verified from Wise 2026-04-10
+  "HKD-IDR": 2120,
+  "HKD-INR": 10.95,
+  "HKD-CNY": 0.8719,  // verified from Wise 2026-04-10
+  "HKD-TWD": 4.18,
+};
+
 export function getProviderLogo(domain: string, size = 64) {
   return `https://www.google.com/s2/favicons?domain=${domain}&sz=${size}`;
 }
 
-// Mid-market rates (reference, for markup calculation display)
-export const MID_MARKET_RATES: Record<string, number> = {
-  "HKD-PHP": 7.35,
-  "HKD-IDR": 2065,
-  "HKD-INR": 10.85,
-};
-
 export const PROVIDERS: Provider[] = [
+  // --- International platforms ---
   {
     slug: "wise",
     name: "Wise",
     domain: "wise.com",
     brandColor: "#9FE870",
     tagline: "Mid-market rate, low transparent fees",
-    affiliateUrl: "https://wise.com/invite/u/weecove", // placeholder until affiliate approved
-    trustpilot: "4.5/5 (230K+ reviews)",
+    affiliateUrl: "https://wise.com",
+    trustpilot: "4.5/5 (230K+)",
     corridors: [
-      { from: "HKD", to: "PHP", rate: 7.35, fee: 25, markup: 0.0, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
-      { from: "HKD", to: "IDR", rate: 2065, fee: 25, markup: 0.0, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
-      { from: "HKD", to: "INR", rate: 10.85, fee: 30, markup: 0.0, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "PHP", rate: 7.6516, fee: 75, markup: 0.0, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "IDR", rate: 2120, fee: 75, markup: 0.0, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "INR", rate: 10.95, fee: 80, markup: 0.0, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "CNY", rate: 0.8719, fee: 122, markup: 0.0, speed: "Seconds", method: "Alipay / WeChat / Bank", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "TWD", rate: 4.18, fee: 75, markup: 0.0, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
     ],
   },
   {
@@ -56,13 +58,15 @@ export const PROVIDERS: Provider[] = [
     name: "Western Union",
     domain: "westernunion.com",
     brandColor: "#FFDD00",
-    tagline: "Cash pickup worldwide, higher fees",
+    tagline: "Cash pickup worldwide",
     affiliateUrl: "https://www.westernunion.com",
-    trustpilot: "1.5/5 (15K+ reviews)",
+    trustpilot: "1.5/5 (15K+)",
     corridors: [
-      { from: "HKD", to: "PHP", rate: 7.05, fee: 0, markup: 4.1, speed: "Minutes", method: "Cash pickup", updatedAt: "2026-04-10" },
-      { from: "HKD", to: "IDR", rate: 1980, fee: 0, markup: 4.1, speed: "Minutes", method: "Cash pickup", updatedAt: "2026-04-10" },
-      { from: "HKD", to: "INR", rate: 10.40, fee: 0, markup: 4.2, speed: "Minutes", method: "Cash pickup", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "PHP", rate: 7.35, fee: 0, markup: 3.9, speed: "Minutes", method: "Cash pickup", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "IDR", rate: 2030, fee: 0, markup: 4.2, speed: "Minutes", method: "Cash pickup", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "INR", rate: 10.50, fee: 0, markup: 4.1, speed: "Minutes", method: "Cash pickup", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "CNY", rate: 0.835, fee: 0, markup: 4.2, speed: "Minutes", method: "Bank / Cash", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "TWD", rate: 4.01, fee: 0, markup: 4.1, speed: "Minutes", method: "Cash pickup", updatedAt: "2026-04-10" },
     ],
   },
   {
@@ -70,13 +74,15 @@ export const PROVIDERS: Provider[] = [
     name: "Remitly",
     domain: "remitly.com",
     brandColor: "#2364AA",
-    tagline: "Fast transfers to Philippines and India",
+    tagline: "Fast to GCash & mobile wallets",
     affiliateUrl: "https://www.remitly.com",
-    trustpilot: "4.3/5 (50K+ reviews)",
+    trustpilot: "4.3/5 (50K+)",
     corridors: [
-      { from: "HKD", to: "PHP", rate: 7.25, fee: 15, markup: 1.4, speed: "Minutes", method: "Mobile wallet (GCash)", updatedAt: "2026-04-10" },
-      { from: "HKD", to: "IDR", rate: 2040, fee: 20, markup: 1.2, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
-      { from: "HKD", to: "INR", rate: 10.70, fee: 15, markup: 1.4, speed: "Minutes", method: "Bank deposit", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "PHP", rate: 7.55, fee: 15, markup: 1.3, speed: "Minutes", method: "GCash / Bank", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "IDR", rate: 2095, fee: 20, markup: 1.2, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "INR", rate: 10.82, fee: 15, markup: 1.2, speed: "Minutes", method: "Bank / UPI", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "CNY", rate: 0.860, fee: 20, markup: 1.4, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "TWD", rate: 4.12, fee: 20, markup: 1.4, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
     ],
   },
   {
@@ -84,13 +90,15 @@ export const PROVIDERS: Provider[] = [
     name: "WorldRemit",
     domain: "worldremit.com",
     brandColor: "#7B2D8E",
-    tagline: "Mobile money and bank transfers",
+    tagline: "Mobile money & bank transfers",
     affiliateUrl: "https://www.worldremit.com",
-    trustpilot: "4.1/5 (18K+ reviews)",
+    trustpilot: "4.1/5 (18K+)",
     corridors: [
-      { from: "HKD", to: "PHP", rate: 7.20, fee: 20, markup: 2.0, speed: "Minutes-1 day", method: "GCash / Bank", updatedAt: "2026-04-10" },
-      { from: "HKD", to: "IDR", rate: 2030, fee: 25, markup: 1.7, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
-      { from: "HKD", to: "INR", rate: 10.65, fee: 20, markup: 1.8, speed: "1 day", method: "Bank deposit", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "PHP", rate: 7.50, fee: 20, markup: 2.0, speed: "Minutes-1 day", method: "GCash / Bank", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "IDR", rate: 2080, fee: 25, markup: 1.9, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "INR", rate: 10.75, fee: 20, markup: 1.8, speed: "1 day", method: "Bank / UPI", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "CNY", rate: 0.855, fee: 25, markup: 1.9, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "TWD", rate: 4.10, fee: 25, markup: 1.9, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
     ],
   },
   {
@@ -98,13 +106,15 @@ export const PROVIDERS: Provider[] = [
     name: "OFX",
     domain: "ofx.com",
     brandColor: "#1A3F7A",
-    tagline: "Good for large transfers, no fees",
+    tagline: "No fees, good for large amounts",
     affiliateUrl: "https://www.ofx.com",
-    trustpilot: "4.6/5 (5K+ reviews)",
+    trustpilot: "4.6/5 (5K+)",
     corridors: [
-      { from: "HKD", to: "PHP", rate: 7.28, fee: 0, markup: 1.0, speed: "1-3 days", method: "Bank transfer", updatedAt: "2026-04-10" },
-      { from: "HKD", to: "IDR", rate: 2050, fee: 0, markup: 0.7, speed: "1-3 days", method: "Bank transfer", updatedAt: "2026-04-10" },
-      { from: "HKD", to: "INR", rate: 10.78, fee: 0, markup: 0.6, speed: "1-3 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "PHP", rate: 7.58, fee: 0, markup: 0.9, speed: "1-3 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "IDR", rate: 2105, fee: 0, markup: 0.7, speed: "1-3 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "INR", rate: 10.88, fee: 0, markup: 0.6, speed: "1-3 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "CNY", rate: 0.866, fee: 0, markup: 0.7, speed: "1-3 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "TWD", rate: 4.15, fee: 0, markup: 0.7, speed: "1-3 days", method: "Bank transfer", updatedAt: "2026-04-10" },
     ],
   },
   {
@@ -112,18 +122,94 @@ export const PROVIDERS: Provider[] = [
     name: "Revolut",
     domain: "revolut.com",
     brandColor: "#0075EB",
-    tagline: "App-based, good rates on weekdays",
+    tagline: "App-based, good weekday rates",
     affiliateUrl: "https://www.revolut.com",
-    trustpilot: "4.3/5 (180K+ reviews)",
+    trustpilot: "4.3/5 (180K+)",
     corridors: [
-      { from: "HKD", to: "PHP", rate: 7.32, fee: 5, markup: 0.4, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
-      { from: "HKD", to: "IDR", rate: 2058, fee: 5, markup: 0.3, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
-      { from: "HKD", to: "INR", rate: 10.82, fee: 5, markup: 0.3, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "PHP", rate: 7.62, fee: 5, markup: 0.4, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "IDR", rate: 2112, fee: 5, markup: 0.4, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "INR", rate: 10.91, fee: 5, markup: 0.4, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "CNY", rate: 0.868, fee: 5, markup: 0.5, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "TWD", rate: 4.16, fee: 5, markup: 0.5, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+    ],
+  },
+  // --- HK Local ---
+  {
+    slug: "hsbc",
+    name: "HSBC 滙豐",
+    domain: "hsbc.com.hk",
+    brandColor: "#DB0011",
+    tagline: "Major HK bank, high fees",
+    affiliateUrl: "https://www.hsbc.com.hk",
+    trustpilot: "1.3/5 (5K+)",
+    corridors: [
+      { from: "HKD", to: "PHP", rate: 7.30, fee: 150, markup: 4.6, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "IDR", rate: 2010, fee: 150, markup: 5.2, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "INR", rate: 10.40, fee: 150, markup: 5.0, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "CNY", rate: 0.850, fee: 100, markup: 2.5, speed: "1-2 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "TWD", rate: 3.98, fee: 150, markup: 4.8, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+    ],
+  },
+  {
+    slug: "boc",
+    name: "中銀 BOC",
+    domain: "bochk.com",
+    brandColor: "#C41230",
+    tagline: "Best for HK→China corridor",
+    affiliateUrl: "https://www.bochk.com",
+    trustpilot: "—",
+    corridors: [
+      { from: "HKD", to: "PHP", rate: 7.28, fee: 120, markup: 4.8, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "IDR", rate: 2000, fee: 120, markup: 5.7, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "INR", rate: 10.38, fee: 120, markup: 5.2, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "CNY", rate: 0.862, fee: 0, markup: 1.2, speed: "Same day", method: "BoC cross-border", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "TWD", rate: 3.95, fee: 120, markup: 5.5, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+    ],
+  },
+  {
+    slug: "hang-seng",
+    name: "恒生 Hang Seng",
+    domain: "hangseng.com",
+    brandColor: "#00573F",
+    tagline: "Popular HK bank",
+    affiliateUrl: "https://www.hangseng.com",
+    trustpilot: "—",
+    corridors: [
+      { from: "HKD", to: "PHP", rate: 7.25, fee: 150, markup: 5.2, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "IDR", rate: 2005, fee: 150, markup: 5.4, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "INR", rate: 10.35, fee: 150, markup: 5.5, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "CNY", rate: 0.848, fee: 65, markup: 2.7, speed: "1-2 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "TWD", rate: 3.96, fee: 150, markup: 5.3, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+    ],
+  },
+  {
+    slug: "panda-remit",
+    name: "熊貓匯款 Panda Remit",
+    domain: "pandaremit.com",
+    brandColor: "#FF6B35",
+    tagline: "Specialist for HK→China",
+    affiliateUrl: "https://www.pandaremit.com",
+    trustpilot: "4.2/5 (1K+)",
+    corridors: [
+      { from: "HKD", to: "CNY", rate: 0.869, fee: 0, markup: 0.3, speed: "Minutes", method: "Alipay / WeChat / Bank", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "PHP", rate: 7.55, fee: 10, markup: 1.3, speed: "1 day", method: "Bank transfer", updatedAt: "2026-04-10" },
+    ],
+  },
+  {
+    slug: "tng",
+    name: "TNG Wallet",
+    domain: "tngwallet.hk",
+    brandColor: "#00A1E4",
+    tagline: "HK e-wallet, popular with helpers",
+    affiliateUrl: "https://www.tngwallet.hk",
+    trustpilot: "—",
+    corridors: [
+      { from: "HKD", to: "PHP", rate: 7.45, fee: 0, markup: 2.6, speed: "1 day", method: "Bank / GCash", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "IDR", rate: 2070, fee: 0, markup: 2.4, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
     ],
   },
 ];
 
-// Helper: calculate total cost and amount received for a given transfer
 export function calculateTransfer(
   provider: Provider,
   fromCurrency: string,
@@ -148,7 +234,6 @@ export function calculateTransfer(
   };
 }
 
-// Helper: get all providers sorted by best rate for a corridor
 export function getBestProviders(
   fromCurrency: string,
   toCurrency: string,

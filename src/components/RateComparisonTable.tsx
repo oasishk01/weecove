@@ -13,9 +13,11 @@ const CURRENCY_SYMBOLS: Record<string, string> = {
 };
 
 const CORRIDORS = [
+  { from: "HKD", to: "CNY", label: "🇨🇳 China (CNY)" },
   { from: "HKD", to: "PHP", label: "🇵🇭 Philippines (PHP)" },
   { from: "HKD", to: "IDR", label: "🇮🇩 Indonesia (IDR)" },
   { from: "HKD", to: "INR", label: "🇮🇳 India (INR)" },
+  { from: "HKD", to: "TWD", label: "🇹🇼 Taiwan (TWD)" },
 ];
 
 function Stars({ rating }: { rating: number }) {
