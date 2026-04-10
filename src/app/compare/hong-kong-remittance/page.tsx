@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { RateComparisonTable } from "@/components/RateComparisonTable";
+import { LiveClock } from "@/components/LiveClock";
 import { PROVIDERS, getProviderLogo } from "@/lib/remittance-data";
 
 export const metadata: Metadata = {
@@ -85,13 +86,11 @@ export default function HongKongRemittancePage() {
         Hong Kong Remittance Comparison — Find the Cheapest Way to Send Money Abroad
       </p>
 
-      <div className="flex items-center gap-3 mb-8 text-sm text-zinc-500">
-        <span className="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded text-xs font-semibold">
-          獨立比較 · Independent
+      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-8">
+        <span className="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded text-xs font-semibold w-fit">
+          獨立比較 · {PROVIDERS.length} providers
         </span>
-        <span>Updated April 2026</span>
-        <span>·</span>
-        <span>{PROVIDERS.length} providers compared</span>
+        <LiveClock />
       </div>
 
       {/* Overview */}

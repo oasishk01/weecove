@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { RateComparisonTable } from "@/components/RateComparisonTable";
+import { LiveClock } from "@/components/LiveClock";
 import { PROVIDERS } from "@/lib/remittance-data";
 
 export const metadata: Metadata = {
@@ -80,13 +81,11 @@ export default function SendMoneyPhilippinesPage() {
         Compare the cheapest and fastest ways to send HKD to PHP
       </p>
 
-      <div className="flex items-center gap-3 mb-8 text-sm text-zinc-500">
-        <span className="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded text-xs font-semibold">
-          Independent Comparison
+      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-8">
+        <span className="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded text-xs font-semibold w-fit">
+          🇭🇰 → 🇵🇭 Independent Comparison
         </span>
-        <span>Updated April 2026</span>
-        <span>·</span>
-        <span>🇭🇰 → 🇵🇭</span>
+        <LiveClock />
       </div>
 
       {/* Context */}

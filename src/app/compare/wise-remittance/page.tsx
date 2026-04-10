@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { RateComparisonTable } from "@/components/RateComparisonTable";
+import { LiveClock } from "@/components/LiveClock";
 import { PROVIDERS } from "@/lib/remittance-data";
 
 export const metadata: Metadata = {
@@ -88,14 +89,12 @@ export default function WiseRemittancePage() {
         Wise Review: Is It Really the Cheapest Way to Send Money from Hong Kong?
       </p>
 
-      {/* Trust badge */}
-      <div className="flex items-center gap-3 mb-8 text-sm text-zinc-500">
-        <span className="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded text-xs font-semibold">
+      {/* Trust badge + live clock */}
+      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-8">
+        <span className="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded text-xs font-semibold w-fit">
           獨立評測 · Independent Review
         </span>
-        <span>Updated April 2026</span>
-        <span>·</span>
-        <span>WeeCove 不屬於任何匯款公司</span>
+        <LiveClock />
       </div>
 
       {/* Quick verdict */}
