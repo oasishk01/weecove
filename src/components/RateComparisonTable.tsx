@@ -69,7 +69,12 @@ export function RateComparisonTable({
                     BEST
                   </span>
                 )}
-                <span className="text-2xl">{provider.logo}</span>
+                <span
+                  className="w-9 h-9 rounded-lg flex items-center justify-center text-xs font-bold shrink-0"
+                  style={{ backgroundColor: provider.brandColor, color: provider.textColor }}
+                >
+                  {provider.logo}
+                </span>
                 <div>
                   <div className="font-semibold text-zinc-900">{provider.name}</div>
                   <div className="text-xs text-zinc-500">{provider.trustpilot}</div>

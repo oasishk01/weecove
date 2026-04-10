@@ -116,7 +116,12 @@ export default function LandingPage() {
             {PROVIDERS.map((p, i) => (
               <BlurFade key={p.slug} delay={0.15 + i * 0.05}>
                 <div className="bg-zinc-50 rounded-xl p-4 text-center border border-zinc-200/60">
-                  <span className="text-3xl">{p.logo}</span>
+                  <span
+                    className="inline-flex w-10 h-10 rounded-lg items-center justify-center text-xs font-bold mx-auto"
+                    style={{ backgroundColor: p.brandColor, color: p.textColor }}
+                  >
+                    {p.logo}
+                  </span>
                   <p className="font-bold text-zinc-900 mt-2">{p.name}</p>
                   <p className="text-xs text-zinc-500 mt-1">{p.trustpilot}</p>
                 </div>

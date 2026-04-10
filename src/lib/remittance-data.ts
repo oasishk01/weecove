@@ -16,7 +16,9 @@ export interface Corridor {
 export interface Provider {
   slug: string;
   name: string;
-  logo: string;
+  logo: string;        // letter to display
+  brandColor: string;  // hex color for logo background
+  textColor: string;   // hex color for logo text
   tagline: string;
   affiliateUrl: string;
   trustpilot: string;
@@ -34,7 +36,9 @@ export const PROVIDERS: Provider[] = [
   {
     slug: "wise",
     name: "Wise",
-    logo: "🟢",
+    logo: "W",
+    brandColor: "#9FE870",
+    textColor: "#163300",
     tagline: "Mid-market rate, low transparent fees",
     affiliateUrl: "https://wise.com/invite/u/weecove", // placeholder until affiliate approved
     trustpilot: "4.5/5 (230K+ reviews)",
@@ -47,7 +51,9 @@ export const PROVIDERS: Provider[] = [
   {
     slug: "western-union",
     name: "Western Union",
-    logo: "🟡",
+    logo: "WU",
+    brandColor: "#FFDD00",
+    textColor: "#1A1A1A",
     tagline: "Cash pickup worldwide, higher fees",
     affiliateUrl: "https://www.westernunion.com",
     trustpilot: "1.5/5 (15K+ reviews)",
@@ -60,7 +66,9 @@ export const PROVIDERS: Provider[] = [
   {
     slug: "remitly",
     name: "Remitly",
-    logo: "🔵",
+    logo: "R",
+    brandColor: "#2364AA",
+    textColor: "#FFFFFF",
     tagline: "Fast transfers to Philippines and India",
     affiliateUrl: "https://www.remitly.com",
     trustpilot: "4.3/5 (50K+ reviews)",
@@ -73,7 +81,9 @@ export const PROVIDERS: Provider[] = [
   {
     slug: "worldremit",
     name: "WorldRemit",
-    logo: "🟣",
+    logo: "W",
+    brandColor: "#7B2D8E",
+    textColor: "#FFFFFF",
     tagline: "Mobile money and bank transfers",
     affiliateUrl: "https://www.worldremit.com",
     trustpilot: "4.1/5 (18K+ reviews)",
@@ -86,7 +96,9 @@ export const PROVIDERS: Provider[] = [
   {
     slug: "ofx",
     name: "OFX",
-    logo: "🔷",
+    logo: "OFX",
+    brandColor: "#1A3F7A",
+    textColor: "#FFFFFF",
     tagline: "Good for large transfers, no fees",
     affiliateUrl: "https://www.ofx.com",
     trustpilot: "4.6/5 (5K+ reviews)",
@@ -99,7 +111,9 @@ export const PROVIDERS: Provider[] = [
   {
     slug: "revolut",
     name: "Revolut",
-    logo: "⚫",
+    logo: "R",
+    brandColor: "#0075EB",
+    textColor: "#FFFFFF",
     tagline: "App-based, good rates on weekdays",
     affiliateUrl: "https://www.revolut.com",
     trustpilot: "4.3/5 (180K+ reviews)",
