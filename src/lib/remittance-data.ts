@@ -239,7 +239,7 @@ export const PROVIDERS: Provider[] = [
   {
     slug: "tng",
     name: "TNG Wallet",
-    domain: "tngwallet.hk",
+    domain: "tng.com.hk",
     brandColor: "#00A1E4",
     tagline: "HK e-wallet, popular with helpers",
     affiliateUrl: "https://www.tngwallet.hk",

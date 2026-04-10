@@ -30,6 +30,7 @@ export default function LandingPage() {
       {/* Tool — immediately */}
       <section className="px-6 pt-8 pb-4">
         <div className="max-w-xl mx-auto">
+          <p className="text-sm text-zinc-500 mb-1">{t("home.sub")}</p>
           <div className="flex items-center justify-between mb-4">
             <h1 className="text-xl font-bold text-zinc-900">
               {t("nav.compare")}

@@ -33,7 +33,9 @@ export function LiveClock() {
         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
         <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
       </span>
-      <span className="tabular-nums">HKT {time}</span>
+      <span className="tabular-nums">{time}</span>
+      <span className="text-zinc-400">·</span>
+      <span className="text-emerald-600 font-medium">Rates live</span>
     </div>
   );
 }
