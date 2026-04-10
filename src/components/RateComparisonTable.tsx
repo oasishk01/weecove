@@ -2,14 +2,13 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { getBestProviders, getProviderLogo } from "@/lib/remittance-data";
+import { getBestProviders, getProviderLogo, type Provider } from "@/lib/remittance-data";
 import { useI18n } from "@/lib/i18n";
 
 const CURRENCY_SYMBOLS: Record<string, string> = {
-  HKD: "HK$",
-  PHP: "₱",
-  IDR: "Rp",
-  INR: "₹",
+  HKD: "HK$", PHP: "₱", IDR: "Rp", INR: "₹",
+  CNY: "¥", TWD: "NT$", JPY: "¥", KRW: "₩",
+  THB: "฿", GBP: "£",
 };
 
 const CORRIDORS = [
@@ -29,12 +28,7 @@ function Stars({ rating }: { rating: number }) {
   return (
     <div className="flex gap-0.5">
       {[1, 2, 3, 4, 5].map((i) => (
-        <svg
-          key={i}
-          className={`w-3 h-3 ${i <= stars ? "text-amber-400" : "text-zinc-200"}`}
-          fill="currentColor"
-          viewBox="0 0 20 20"
-        >
+        <svg key={i} className={`w-3 h-3 ${i <= stars ? "text-amber-400" : "text-zinc-200"}`} fill="currentColor" viewBox="0 0 20 20">
           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
         </svg>
       ))}
@@ -42,10 +36,89 @@ function Stars({ rating }: { rating: number }) {
   );
 }
 
-// Extract numeric rating from trustpilot string like "4.5/5 (230K+ reviews)"
 function parseRating(tp: string): number {
   const match = tp.match(/^([\d.]+)/);
   return match ? parseFloat(match[1]) : 0;
+}
+
+function ProviderRow({
+  provider, result, isBest, bestReceived, from, to, t,
+}: {
+  provider: Provider;
+  result: { received: number; fee: number; rate: number };
+  isBest: boolean;
+  bestReceived: number;
+  from: string;
+  to: string;
+  t: (key: string) => string;
+}) {
+  const diff = bestReceived - result.received;
+  const corridor = provider.corridors.find(c => c.from === from && c.to === to);
+  const rating = parseRating(provider.trustpilot);
+
+  return (
+    <div className={`p-4 transition-colors ${isBest ? "bg-emerald-50/70" : "hover:bg-zinc-50"}`}>
+      <div className="flex items-start gap-3">
+        <div className="relative shrink-0">
+          <Image
+            src={getProviderLogo(provider.domain)}
+            alt={provider.name}
+            width={40}
+            height={40}
+            className="w-10 h-10 rounded-lg"
+          />
+          {isBest && (
+            <span className="absolute -top-1 -right-1 bg-emerald-600 text-white text-[9px] font-bold px-1 py-0.5 rounded leading-none">
+              #1
+            </span>
+          )}
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-zinc-900">{provider.name}</span>
+          </div>
+          {rating > 0 && (
+            <div className="flex items-center gap-1.5 mt-0.5">
+              <Stars rating={rating} />
+              <span className="text-[10px] text-zinc-400">{provider.trustpilot}</span>
+            </div>
+          )}
+          <span className="text-[10px] text-zinc-500 mt-0.5 block">
+            {corridor?.speed} · {corridor?.method}
+          </span>
+        </div>
+        <div className="text-right shrink-0">
+          <div className={`text-lg font-bold ${isBest ? "text-emerald-700" : "text-zinc-900"}`}>
+            {CURRENCY_SYMBOLS[to]}{result.received.toLocaleString()}
+          </div>
+          <div className="text-[10px] text-zinc-400">
+            Fee {CURRENCY_SYMBOLS[from]}{result.fee}
+          </div>
+        </div>
+      </div>
+      <div className="mt-2.5 flex items-center justify-between">
+        {isBest ? (
+          <span className="text-xs text-emerald-600 font-medium">✓ {t("table.best")}</span>
+        ) : (
+          <span className="text-xs text-zinc-400">
+            {diff > 0 ? `${CURRENCY_SYMBOLS[to]}${diff.toLocaleString()} less` : ""}
+          </span>
+        )}
+        <a
+          href={provider.affiliateUrl}
+          target="_blank"
+          rel="noopener noreferrer nofollow"
+          className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
+            isBest
+              ? "bg-emerald-600 text-white hover:bg-emerald-700"
+              : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
+          }`}
+        >
+          {isBest ? t("table.sendnow") : t("table.compare")}
+        </a>
+      </div>
+    </div>
+  );
 }
 
 export function RateComparisonTable({
@@ -62,19 +135,17 @@ export function RateComparisonTable({
   const { t } = useI18n();
   const [amount, setAmount] = useState(defaultAmount);
   const [corridor, setCorridor] = useState({ from: defaultFrom, to: defaultTo });
+  const [showCrypto, setShowCrypto] = useState(false);
   const from = showCorridorPicker ? corridor.from : defaultFrom;
   const to = showCorridorPicker ? corridor.to : defaultTo;
 
-  const results = getBestProviders(from, to, amount);
-  const bestReceived = results[0]?.result?.received ?? 0;
-  const worstReceived = results[results.length - 1]?.result?.received ?? 0;
-  const savings = bestReceived - worstReceived;
+  const { traditional, crypto } = getBestProviders(from, to, amount);
+  const bestReceived = traditional[0]?.result?.received ?? 0;
 
   return (
     <div className="border border-zinc-200 rounded-xl overflow-hidden shadow-sm">
       {/* Input area */}
       <div className="bg-gradient-to-r from-zinc-50 to-white p-4 border-b border-zinc-200">
-        {/* Corridor picker */}
         {showCorridorPicker && (
           <div className="mb-3">
             <label className="block text-[10px] font-medium text-zinc-400 uppercase tracking-wider mb-1">
@@ -117,98 +188,79 @@ export function RateComparisonTable({
         </div>
       </div>
 
-      {/* Savings bar */}
-      {savings > 0 && (
-        <div className="bg-emerald-600 text-white px-4 py-2 text-center text-sm font-medium">
-          {t("table.savings")} {CURRENCY_SYMBOLS[to]}{savings.toLocaleString()}
-        </div>
-      )}
-
-      {/* Provider rows */}
+      {/* Traditional providers */}
       <div className="divide-y divide-zinc-100">
-        {results.map(({ provider, result }, i) => {
+        {traditional.map(({ provider, result }, i) => {
           if (!result) return null;
-          const isBest = i === 0;
-          const diff = bestReceived - result.received;
-          const corridor = provider.corridors.find(c => c.from === from && c.to === to);
-          const yearlyLoss = diff * 12;
-          const rating = parseRating(provider.trustpilot);
-
           return (
-            <div
+            <ProviderRow
               key={provider.slug}
-              className={`p-4 transition-colors ${isBest ? "bg-emerald-50/70" : "hover:bg-zinc-50"}`}
-            >
-              <div className="flex items-start gap-3">
-                {/* Logo */}
-                <div className="relative shrink-0">
-                  <Image
-                    src={getProviderLogo(provider.domain)}
-                    alt={provider.name}
-                    width={40}
-                    height={40}
-                    className="w-10 h-10 rounded-lg"
-                  />
-                  {isBest && (
-                    <span className="absolute -top-1 -right-1 bg-emerald-600 text-white text-[9px] font-bold px-1 py-0.5 rounded leading-none">
-                      #1
-                    </span>
-                  )}
-                </div>
-
-                {/* Name + stars */}
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <span className="font-semibold text-zinc-900">{provider.name}</span>
-                  </div>
-                  <div className="flex items-center gap-1.5 mt-0.5">
-                    <Stars rating={rating} />
-                    <span className="text-[10px] text-zinc-400">{provider.trustpilot}</span>
-                  </div>
-                  <span className="text-[10px] text-zinc-500 mt-0.5 block">
-                    {corridor?.speed} · {corridor?.method}
-                  </span>
-                </div>
-
-                {/* Amount */}
-                <div className="text-right shrink-0">
-                  <div className={`text-lg font-bold ${isBest ? "text-emerald-700" : "text-zinc-900"}`}>
-                    {CURRENCY_SYMBOLS[to]}{result.received.toLocaleString()}
-                  </div>
-                  <div className="text-[10px] text-zinc-400">
-                    Fee {CURRENCY_SYMBOLS[from]}{result.fee}
-                  </div>
-                </div>
-              </div>
-
-              {/* Savings indicator + CTA */}
-              <div className="mt-2.5 flex items-center justify-between">
-                {isBest ? (
-                  <span className="text-xs text-emerald-600 font-medium">
-                    ✓ {t("table.best")}
-                  </span>
-                ) : (
-                  <span className="text-xs text-zinc-400">
-                    {diff > 0 ? `${CURRENCY_SYMBOLS[to]}${diff.toLocaleString()} less received` : ""}
-                  </span>
-                )}
-                <a
-                  href={provider.affiliateUrl}
-                  target="_blank"
-                  rel="noopener noreferrer nofollow"
-                  className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
-                    isBest
-                      ? "bg-emerald-600 text-white hover:bg-emerald-700"
-                      : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
-                  }`}
-                >
-                  {isBest ? t("table.sendnow") : t("table.compare")}
-                </a>
-              </div>
-            </div>
+              provider={provider}
+              result={result}
+              isBest={i === 0}
+              bestReceived={bestReceived}
+              from={from}
+              to={to}
+              t={t}
+            />
           );
         })}
       </div>
+
+      {/* Crypto section — collapsible */}
+      {crypto.length > 0 && (
+        <div className="border-t border-zinc-200">
+          <button
+            onClick={() => setShowCrypto(!showCrypto)}
+            className="w-full px-4 py-3 flex items-center justify-between bg-zinc-50 hover:bg-zinc-100 transition-colors"
+          >
+            <div className="flex items-center gap-2">
+              <span className="text-sm">₿</span>
+              <span className="text-sm font-medium text-zinc-700">
+                {showCrypto ? "Hide" : "Show"} crypto options
+              </span>
+              <span className="text-[10px] bg-zinc-200 text-zinc-600 px-1.5 py-0.5 rounded">
+                Advanced
+              </span>
+            </div>
+            <svg
+              className={`w-4 h-4 text-zinc-400 transition-transform ${showCrypto ? "rotate-180" : ""}`}
+              fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          {showCrypto && (
+            <>
+              <div className="px-4 py-2 bg-amber-50 border-b border-amber-100">
+                <p className="text-[10px] text-amber-700 leading-relaxed">
+                  Crypto transfers require an exchange account (OKX/Binance) and basic knowledge of USDT.
+                  Rates shown assume buying USDT and sending via blockchain. Recipient needs to convert to local currency.
+                </p>
+              </div>
+              <div className="divide-y divide-zinc-100">
+                {crypto.map(({ provider, result }) => {
+                  if (!result) return null;
+                  const cryptoBest = crypto[0]?.result?.received ?? 0;
+                  return (
+                    <ProviderRow
+                      key={provider.slug}
+                      provider={provider}
+                      result={result}
+                      isBest={result.received === cryptoBest}
+                      bestReceived={cryptoBest}
+                      from={from}
+                      to={to}
+                      t={t}
+                    />
+                  );
+                })}
+              </div>
+            </>
+          )}
+        </div>
+      )}
 
       {/* Disclaimer */}
       <div className="px-4 py-2.5 bg-zinc-50 border-t border-zinc-200">

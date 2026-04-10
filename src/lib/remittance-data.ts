@@ -20,6 +20,7 @@ export interface Provider {
   tagline: string;
   affiliateUrl: string;
   trustpilot: string;
+  crypto?: boolean;
   corridors: Corridor[];
 }
 
@@ -254,6 +255,7 @@ export const PROVIDERS: Provider[] = [
     name: "OKX",
     domain: "okx.com",
     brandColor: "#000000",
+    crypto: true,
     tagline: "Crypto exchange, USDT transfers",
     affiliateUrl: "https://www.okx.com",
     trustpilot: "4.4/5 (30K+)",
@@ -274,6 +276,7 @@ export const PROVIDERS: Provider[] = [
     name: "Binance",
     domain: "binance.com",
     brandColor: "#F0B90B",
+    crypto: true,
     tagline: "Largest crypto exchange, P2P trading",
     affiliateUrl: "https://www.binance.com",
     trustpilot: "4.2/5 (25K+)",
@@ -320,10 +323,18 @@ export function getBestProviders(
   toCurrency: string,
   amount: number
 ) {
-  return PROVIDERS.map((provider) => ({
+  const all = PROVIDERS.map((provider) => ({
     provider,
     result: calculateTransfer(provider, fromCurrency, toCurrency, amount),
-  }))
-    .filter((p) => p.result !== null)
+  })).filter((p) => p.result !== null);
+
+  const traditional = all
+    .filter((p) => !p.provider.crypto)
     .sort((a, b) => b.result!.received - a.result!.received);
+
+  const crypto = all
+    .filter((p) => p.provider.crypto)
+    .sort((a, b) => b.result!.received - a.result!.received);
+
+  return { traditional, crypto };
 }
