@@ -82,6 +82,12 @@ export default function AboutPage() {
               {" "}<Link href="/.well-known/security.txt" className="text-emerald-600 underline">security.txt</Link>.
             </p>
           </section>
+
+          <section className="flex gap-4 pt-4 border-t border-zinc-200">
+            <Link href="/terms" className="text-emerald-600 text-sm underline">Terms of Service</Link>
+            <Link href="/privacy" className="text-emerald-600 text-sm underline">Privacy Policy</Link>
+            <Link href="/" className="text-emerald-600 text-sm underline">Compare Rates</Link>
+          </section>
         </div>
       </div>
     </div>

@@ -8,16 +8,35 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
+const siteUrl = "https://weecove.com";
+
 export const metadata: Metadata = {
   title: "WeeCove — Hong Kong Remittance Comparison",
   description:
     "Independent remittance comparison tool. Compare Wise, Western Union, Remitly fees and rates. Find the cheapest way to send money from Hong Kong.",
+  metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: "/",
+  },
   verification: {
     google: "s7HY1_X3uIAsp5RrTs4PlT0NJ7wM-Mb6sj2JTM2m0dQ",
   },
   icons: {
     icon: "/favicon.ico",
     apple: "/apple-touch-icon.png",
+  },
+  openGraph: {
+    title: "WeeCove — Hong Kong Remittance Comparison",
+    description: "Compare 13+ money transfer providers. Find the cheapest way to send money from Hong Kong. Independent, free, updated daily.",
+    url: siteUrl,
+    siteName: "WeeCove",
+    locale: "en_HK",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "WeeCove — Hong Kong Remittance Comparison",
+    description: "Compare 13+ money transfer providers. Find the cheapest way to send money from Hong Kong.",
   },
 };
 

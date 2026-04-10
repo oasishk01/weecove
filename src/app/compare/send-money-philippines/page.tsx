@@ -8,6 +8,15 @@ export const metadata: Metadata = {
   title: "Send Money from Hong Kong to Philippines (2026) — Cheapest Ways Compared | WeeCove",
   description:
     "Compare the cheapest ways to send money from Hong Kong to the Philippines. Wise vs Western Union vs Remitly vs GCash. Independent comparison with real rates.",
+  alternates: {
+    canonical: "/compare/send-money-philippines",
+  },
+  openGraph: {
+    title: "Send Money HK to Philippines (2026) | WeeCove",
+    description: "Compare cheapest ways to send HKD to PHP. Wise vs Western Union vs Remitly vs GCash.",
+    url: "https://weecove.com/compare/send-money-philippines",
+    type: "article",
+  },
 };
 
 const FAQ = [

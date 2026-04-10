@@ -9,10 +9,13 @@ export const metadata: Metadata = {
   description:
     "獨立 Wise 匯款 review。比較 Wise 同 Western Union、Remitly、WorldRemit 嘅手續費同匯率。睇吓 Wise 係咪真係最平。Independent Wise review for Hong Kong.",
   alternates: {
-    languages: {
-      "zh-HK": "/compare/wise-remittance",
-      en: "/compare/wise-remittance",
-    },
+    canonical: "/compare/wise-remittance",
+  },
+  openGraph: {
+    title: "Wise 匯款完整指南 (2026) | WeeCove",
+    description: "Independent Wise review. Compare fees and rates with Western Union, Remitly, WorldRemit.",
+    url: "https://weecove.com/compare/wise-remittance",
+    type: "article",
   },
 };
 
@@ -56,9 +59,15 @@ export default function WiseRemittancePage() {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: "Wise 匯款完整指南 — 手續費、匯率、同其他平台比較",
-    description: metadata.description,
-    author: { "@type": "Organization", name: "WeeCove" },
-    publisher: { "@type": "Organization", name: "WeeCove", url: "https://weecove.com" },
+    description: "Independent Wise review for Hong Kong. Compare Wise fees and exchange rates with Western Union, Remitly, WorldRemit.",
+    author: { "@type": "Organization", name: "WeeCove", url: "https://weecove.com" },
+    publisher: {
+      "@type": "Organization",
+      name: "WeeCove",
+      url: "https://weecove.com",
+      logo: { "@type": "ImageObject", url: "https://weecove.com/otter-head.png" },
+    },
+    mainEntityOfPage: "https://weecove.com/compare/wise-remittance",
     datePublished: "2026-04-10",
     dateModified: "2026-04-10",
   };

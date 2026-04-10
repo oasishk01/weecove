@@ -10,10 +10,13 @@ export const metadata: Metadata = {
   description:
     "比較香港所有匯款方法：Wise、Western Union、Remitly、WorldRemit、銀行電匯。邊個最平？邊個最快？獨立比較，唔屬於任何匯款公司。",
   alternates: {
-    languages: {
-      "zh-HK": "/compare/hong-kong-remittance",
-      en: "/compare/hong-kong-remittance",
-    },
+    canonical: "/compare/hong-kong-remittance",
+  },
+  openGraph: {
+    title: "Hong Kong Remittance Comparison (2026) | WeeCove",
+    description: "Compare all remittance methods from Hong Kong. Wise, Western Union, Remitly, banks. Find the cheapest.",
+    url: "https://weecove.com/compare/hong-kong-remittance",
+    type: "article",
   },
 };
 
