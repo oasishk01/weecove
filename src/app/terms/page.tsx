@@ -11,57 +11,57 @@ export default function TermsPage() {
       <div className="px-6 pt-12 pb-16 max-w-2xl mx-auto">
         <Link href="/" className="text-emerald-600 font-bold text-xl">WeeCove</Link>
         <h1 className="text-3xl font-bold mt-8">Terms of Service</h1>
-        <p className="text-zinc-400 text-sm mt-2">Last updated: April 8, 2026</p>
+        <p className="text-zinc-400 text-sm mt-2">Last updated: April 10, 2026</p>
 
         <div className="mt-8 prose prose-zinc prose-sm max-w-none space-y-6 text-zinc-600 leading-relaxed">
           <section>
             <h2 className="text-lg font-semibold text-zinc-900">1. About WeeCove</h2>
-            <p>WeeCove is a rewards platform operated by Sobie Tech Limited, a company registered in Hong Kong. By using WeeCove, you agree to these terms.</p>
+            <p>WeeCove is an independent remittance comparison platform operated by Sobie Tech Limited, a company registered in Hong Kong. We provide exchange rate and fee comparisons across money transfer providers. We are not a money transfer service and do not process any transactions.</p>
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-zinc-900">2. Eligibility</h2>
-            <p>You must be at least 18 years old to use WeeCove. You may only create one account per person. Duplicate accounts will be terminated.</p>
+            <h2 className="text-lg font-semibold text-zinc-900">2. Nature of Service</h2>
+            <p>WeeCove provides information and comparison tools for educational purposes. Exchange rates and fees shown are indicative and may differ from actual rates at the time of transfer. Always verify current rates on the provider&apos;s website before making a transfer.</p>
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-zinc-900">3. How It Works</h2>
-            <p>WeeCove connects you with third-party survey and offer providers. When you complete tasks, you earn rewards in HK$. Rewards are credited to your WeeCove balance after our partners confirm completion.</p>
+            <h2 className="text-lg font-semibold text-zinc-900">3. Independence</h2>
+            <p>WeeCove is not owned by, affiliated with, or endorsed by any money transfer provider. Our rankings are based solely on total amount received by the recipient after all fees and exchange rate markup. No provider can pay to influence their ranking.</p>
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-zinc-900">4. Cash Out</h2>
-            <p>You may request a cash out once your available balance reaches HK$40. Payments are processed within 24-48 hours via PayPal, GCash, or Wise. We reserve the right to review cash out requests for fraud prevention.</p>
+            <h2 className="text-lg font-semibold text-zinc-900">4. Affiliate Links</h2>
+            <p>WeeCove contains affiliate links. When you click through to a provider and complete a transaction, we may earn a commission. This does not affect the price you pay. It is how we keep WeeCove free.</p>
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-zinc-900">5. Referral Program</h2>
-            <p>You may earn rewards by referring friends. Both you and your friend receive HK$5 when they sign up using your referral link. You also earn 10% of your referrals task earnings. Abuse of the referral program (fake accounts, self-referrals) will result in account termination and forfeiture of earnings.</p>
+            <h2 className="text-lg font-semibold text-zinc-900">5. No Financial Advice</h2>
+            <p>Nothing on WeeCove constitutes financial advice. We provide comparison data to help you make informed decisions. You are responsible for your own transfer decisions and should conduct your own research before using any provider.</p>
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-zinc-900">6. Prohibited Conduct</h2>
-            <p>You may not: use bots or automated tools to complete tasks, create multiple accounts, provide false information, attempt to manipulate or defraud the platform, or engage in any activity that violates applicable law.</p>
+            <h2 className="text-lg font-semibold text-zinc-900">6. Accuracy</h2>
+            <p>We make reasonable efforts to keep our data accurate and up to date. However, exchange rates fluctuate constantly and provider fees may change without notice. WeeCove is not liable for any losses arising from reliance on the data shown on this site.</p>
           </section>
 
           <section>
-            <h2 className="text-lg font-semibold text-zinc-900">7. Account Termination</h2>
-            <p>We may suspend or terminate your account at any time for violation of these terms. Unpaid balances may be forfeited if your account is terminated for fraud or abuse.</p>
+            <h2 className="text-lg font-semibold text-zinc-900">7. Rate Alerts</h2>
+            <p>If you subscribe to rate alerts, you agree to receive email notifications about exchange rate changes. You may unsubscribe at any time. We will never share your email with third parties.</p>
           </section>
 
           <section>
             <h2 className="text-lg font-semibold text-zinc-900">8. Limitation of Liability</h2>
-            <p>WeeCove is provided &ldquo;as is.&rdquo; We are not responsible for the availability, accuracy, or content of third-party surveys and offers. Our total liability is limited to the amount of your unpaid balance at the time of any claim.</p>
+            <p>WeeCove is provided &ldquo;as is.&rdquo; We are not responsible for any transactions you make with third-party providers. We are not liable for any direct, indirect, or consequential losses arising from the use of this site.</p>
           </section>
 
           <section>
             <h2 className="text-lg font-semibold text-zinc-900">9. Changes</h2>
-            <p>We may update these terms at any time. Continued use of WeeCove after changes constitutes acceptance of the new terms.</p>
+            <p>We may update these terms at any time. Continued use of WeeCove after changes constitutes acceptance.</p>
           </section>
 
           <section>
             <h2 className="text-lg font-semibold text-zinc-900">10. Contact</h2>
-            <p>For questions about these terms, contact us at support@weecove.com.</p>
+            <p>For questions: support@weecove.com</p>
           </section>
         </div>
       </div>

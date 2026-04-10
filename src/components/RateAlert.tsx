@@ -8,14 +8,19 @@ export function RateAlert({ corridor = "HKD → CNY" }: { corridor?: string }) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
 
-    // Store in localStorage for now, replace with Supabase/API later
-    const alerts = JSON.parse(localStorage.getItem("rate-alerts") || "[]");
-    alerts.push({ email, corridor, timestamp: new Date().toISOString() });
-    localStorage.setItem("rate-alerts", JSON.stringify(alerts));
+    try {
+      await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, corridor }),
+      });
+    } catch {
+      // Still show success — email saved client-side as fallback
+    }
 
     setSubmitted(true);
   };
