@@ -85,12 +85,30 @@ export function TodayCounter() {
   useEffect(() => {
     setMounted(true);
     const hour = new Date().getHours();
-    const base = hour * 12 + Math.floor(Math.random() * 8);
+    const base = hour * 12 + Math.floor(Math.random() * 30);
     setCount(base);
-    const interval = setInterval(() => {
-      setCount((c) => c + 1);
-    }, 4000 + Math.random() * 3000);
-    return () => clearInterval(interval);
+
+    const tick = () => {
+      const r = Math.random();
+      if (r < 0.6) {
+        // 60%: go up 1-3 (normal traffic)
+        setCount((c) => c + 1 + Math.floor(Math.random() * 3));
+      } else if (r < 0.8) {
+        // 20%: burst up 4-8 (someone shared the link)
+        setCount((c) => c + 4 + Math.floor(Math.random() * 5));
+      } else if (r < 0.92) {
+        // 12%: drop 1-2 (session expired / correction)
+        setCount((c) => Math.max(0, c - 1 - Math.floor(Math.random() * 2)));
+      } else {
+        // 8%: stay same (quiet moment)
+      }
+      // Random interval: 1.5s - 8s
+      const next = 1500 + Math.random() * 6500;
+      setTimeout(tick, next);
+    };
+
+    const first = setTimeout(tick, 2000 + Math.random() * 3000);
+    return () => clearTimeout(first);
   }, []);
 
   if (!mounted) return null;
