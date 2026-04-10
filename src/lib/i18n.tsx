@@ -48,7 +48,7 @@ const translations: Record<string, Record<Locale, string>> = {
   "alert.placeholder": { en: "Your email", zh: "你嘅 email" },
   "alert.button": { en: "Notify me", zh: "通知我" },
   "alert.done": { en: "You're in. We'll email you when rates drop.", zh: "搞掂。匯率跌咗會 email 你。" },
-  "alert.privacy": { en: "No spam. Unsubscribe anytime. We only send rate alerts.", zh: "冇垃圾郵件。隨時退訂。我哋只 send 匯率通知。" },
+  "alert.privacy": { en: "No spam. Unsubscribe anytime. WeeCove will never ask for your password, bank details, or payment information via email.", zh: "冇垃圾郵件。隨時退訂。WeeCove 絕不會透過 email 向你索取密碼、銀行資料或付款資訊。" },
 
   // Clock
   "clock.checked": { en: "Last checked", zh: "上次更新" },
