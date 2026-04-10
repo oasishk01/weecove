@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   title: "WeeCove — Earn Money, Send More Home",
   description:
     "Earn extra cash from your phone. Complete tasks, get paid in HK$ via PayPal. Free forever.",
+  verification: {
+    google: "s7HY1_X3uIAsp5RrTs4PlT0NJ7wM-Mb6sj2JTM2m0dQ",
+  },
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
