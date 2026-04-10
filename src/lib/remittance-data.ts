@@ -248,6 +248,47 @@ export const PROVIDERS: Provider[] = [
       { from: "HKD", to: "IDR", rate: 2070, fee: 0, markup: 2.4, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
     ],
   },
+  // --- Crypto ---
+  {
+    slug: "okx",
+    name: "OKX",
+    domain: "okx.com",
+    brandColor: "#000000",
+    tagline: "Crypto exchange, USDT transfers",
+    affiliateUrl: "https://www.okx.com",
+    trustpilot: "4.4/5 (30K+)",
+    corridors: [
+      { from: "HKD", to: "CNY", rate: 0.871, fee: 1, markup: 0.1, speed: "Minutes", method: "USDT → OTC sell", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "PHP", rate: 7.64, fee: 1, markup: 0.2, speed: "Minutes", method: "USDT transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "IDR", rate: 2116, fee: 1, markup: 0.2, speed: "Minutes", method: "USDT transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "INR", rate: 10.93, fee: 1, markup: 0.2, speed: "Minutes", method: "USDT → P2P sell", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "TWD", rate: 4.17, fee: 1, markup: 0.2, speed: "Minutes", method: "USDT transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "JPY", rate: 18.51, fee: 1, markup: 0.2, speed: "Minutes", method: "USDT transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "KRW", rate: 184.1, fee: 1, markup: 0.2, speed: "Minutes", method: "USDT transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "THB", rate: 4.41, fee: 1, markup: 0.2, speed: "Minutes", method: "USDT transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "GBP", rate: 0.0983, fee: 1, markup: 0.2, speed: "Minutes", method: "USDT transfer", updatedAt: "2026-04-10" },
+    ],
+  },
+  {
+    slug: "binance",
+    name: "Binance",
+    domain: "binance.com",
+    brandColor: "#F0B90B",
+    tagline: "Largest crypto exchange, P2P trading",
+    affiliateUrl: "https://www.binance.com",
+    trustpilot: "4.2/5 (25K+)",
+    corridors: [
+      { from: "HKD", to: "CNY", rate: 0.870, fee: 0, markup: 0.2, speed: "Minutes", method: "USDT → P2P sell", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "PHP", rate: 7.63, fee: 0, markup: 0.3, speed: "Minutes", method: "USDT → P2P sell", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "IDR", rate: 2114, fee: 0, markup: 0.3, speed: "Minutes", method: "USDT → P2P sell", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "INR", rate: 10.92, fee: 0, markup: 0.3, speed: "Minutes", method: "USDT → P2P sell", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "TWD", rate: 4.17, fee: 0, markup: 0.2, speed: "Minutes", method: "USDT → P2P sell", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "JPY", rate: 18.50, fee: 0, markup: 0.3, speed: "Minutes", method: "USDT → P2P sell", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "KRW", rate: 183.9, fee: 0, markup: 0.3, speed: "Minutes", method: "USDT → P2P sell", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "THB", rate: 4.41, fee: 0, markup: 0.2, speed: "Minutes", method: "USDT → P2P sell", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "GBP", rate: 0.0982, fee: 0, markup: 0.3, speed: "Minutes", method: "USDT → P2P sell", updatedAt: "2026-04-10" },
+    ],
+  },
 ];
 
 export function calculateTransfer(
