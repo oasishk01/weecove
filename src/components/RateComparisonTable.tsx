@@ -140,14 +140,13 @@ export function RateComparisonTable({
   const { rates: liveRates } = useLiveRates();
   const [amount, setAmount] = useState(defaultAmount);
   const [corridor, setCorridor] = useState({ from: defaultFrom, to: defaultTo });
-  const [showCrypto, setShowCrypto] = useState(false);
   const from = showCorridorPicker ? corridor.from : defaultFrom;
   const to = showCorridorPicker ? corridor.to : defaultTo;
 
   // Update mid-market rates with live data when available
   if (liveRates) updateMidMarketRates(liveRates);
 
-  const { traditional, crypto } = getBestProviders(from, to, amount);
+  const { traditional } = getBestProviders(from, to, amount);
   const bestReceived = traditional[0]?.result?.received ?? 0;
 
   return (
@@ -215,61 +214,6 @@ export function RateComparisonTable({
           );
         })}
       </div>
-
-      {/* Crypto section — collapsible */}
-      {crypto.length > 0 && (
-        <div className="border-t border-zinc-200">
-          <button
-            onClick={() => setShowCrypto(!showCrypto)}
-            className="w-full px-4 py-3 flex items-center justify-between bg-zinc-50 hover:bg-zinc-100 transition-colors"
-          >
-            <div className="flex items-center gap-2">
-              <span className="text-sm">₿</span>
-              <span className="text-sm font-medium text-zinc-700">
-                {showCrypto ? "Hide" : "Show"} crypto options
-              </span>
-              <span className="text-[10px] bg-zinc-200 text-zinc-600 px-1.5 py-0.5 rounded">
-                Advanced
-              </span>
-            </div>
-            <svg
-              className={`w-4 h-4 text-zinc-400 transition-transform ${showCrypto ? "rotate-180" : ""}`}
-              fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-
-          {showCrypto && (
-            <>
-              <div className="px-4 py-2 bg-amber-50 border-b border-amber-100">
-                <p className="text-[10px] text-amber-700 leading-relaxed">
-                  Crypto transfers require an exchange account (OKX/Binance) and basic knowledge of USDT.
-                  Rates shown assume buying USDT and sending via blockchain. Recipient needs to convert to local currency.
-                </p>
-              </div>
-              <div className="divide-y divide-zinc-100">
-                {crypto.map(({ provider, result }) => {
-                  if (!result) return null;
-                  const cryptoBest = crypto[0]?.result?.received ?? 0;
-                  return (
-                    <ProviderRow
-                      key={provider.slug}
-                      provider={provider}
-                      result={result}
-                      isBest={result.received === cryptoBest}
-                      bestReceived={cryptoBest}
-                      from={from}
-                      to={to}
-                      t={t}
-                    />
-                  );
-                })}
-              </div>
-            </>
-          )}
-        </div>
-      )}
 
       {/* Disclaimer */}
       <div className="px-4 py-2.5 bg-zinc-50 border-t border-zinc-200">
