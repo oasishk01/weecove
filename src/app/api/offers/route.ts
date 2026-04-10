@@ -114,6 +114,15 @@ async function translateBatch(texts: string[]): Promise<string[]> {
   return results;
 }
 
+const SPAM_KEYWORDS = [
+  "millionaire", "win ", "winner", "luck", "lucky", "sweepstake", "gift card",
+  "voucher", "lottery", "prize", "iphone", "samsung galaxy", "ps5", "playstation",
+  "xbox", "macbook", "airpods", "walmart", "amazon gift", "target gift",
+  "spin the wheel", "scratch", "jackpot", "giveaway",
+];
+
+const MIN_USER_REWARD = 0.10; // Don't show offers worth less than $0.10
+
 function cleanOffer(raw: RawOffer): CleanOffer | null {
   // Skip Pin-Submit (charges user's phone bill)
   if (raw.category === "Pin-Submit") return null;
@@ -123,6 +132,13 @@ function cleanOffer(raw: RawOffer): CleanOffer | null {
   if (payout <= 0) return null;
 
   const userReward = Math.round(payout * 0.7 * 100) / 100;
+
+  // Filter out low-value offers
+  if (userReward < MIN_USER_REWARD) return null;
+
+  // Filter spam/scam offers
+  const lowerTitle = (raw.title + " " + raw.description).toLowerCase();
+  if (SPAM_KEYWORDS.some((kw) => lowerTitle.includes(kw))) return null;
   const catInfo = CATEGORY_MAP[raw.category] || {
     label: "Task",
     icon: "zap",
@@ -176,10 +192,18 @@ async function fetchOffers(country?: string): Promise<CategorizedOffers> {
   const json = await res.json();
   const rawOffers: RawOffer[] = json.offers || [];
 
+  // Clean, filter, and deduplicate by title (keep highest paying version)
+  const seenTitles = new Set<string>();
   const cleaned = rawOffers
     .map(cleanOffer)
     .filter((o): o is CleanOffer => o !== null)
-    .sort((a, b) => b.userReward - a.userReward); // highest reward first
+    .sort((a, b) => b.userReward - a.userReward) // highest reward first
+    .filter((o) => {
+      const key = o.title.toLowerCase().trim();
+      if (seenTitles.has(key)) return false;
+      seenTitles.add(key);
+      return true;
+    });
 
   // Batch translate non-English titles and descriptions
   const titles = cleaned.map((o) => o.title);

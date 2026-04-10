@@ -12,6 +12,9 @@
   <url><loc>https://weecove.com/apps/ysense</loc><priority>0.7</priority></url>
   <url><loc>https://weecove.com/apps/mistplay</loc><priority>0.7</priority></url>
   <url><loc>https://weecove.com/apps/compare</loc><priority>0.7</priority></url>
+  <url><loc>https://weecove.com/compare/wise-remittance</loc><priority>0.9</priority></url>
+  <url><loc>https://weecove.com/compare/hong-kong-remittance</loc><priority>0.9</priority></url>
+  <url><loc>https://weecove.com/compare/send-money-philippines</loc><priority>0.8</priority></url>
   <url><loc>https://weecove.com/terms</loc><priority>0.3</priority></url>
   <url><loc>https://weecove.com/privacy</loc><priority>0.3</priority></url>
 </urlset>
