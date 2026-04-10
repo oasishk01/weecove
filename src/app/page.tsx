@@ -34,8 +34,8 @@ export default function LandingPage() {
       <section className="px-6 pt-8 pb-6 md:pt-14 md:pb-10">
         <div className="max-w-2xl mx-auto text-center">
           <BlurFade delay={0}>
-            <div className="inline-flex items-center gap-2 bg-red-50 border border-red-100 text-red-700 text-xs font-medium px-3 py-1.5 rounded-full mb-5">
-              <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
+            <div className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-100 text-emerald-700 text-xs font-medium px-3 py-1.5 rounded-full mb-5">
+              <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
               {t("home.badge")}
             </div>
           </BlurFade>
@@ -44,7 +44,7 @@ export default function LandingPage() {
             <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-zinc-900 leading-[1.1]">
               {t("home.hero1")}
               <br />
-              <span className="text-red-500">{t("home.hero2")}</span>
+              <span className="text-emerald-600">{t("home.hero2")}</span>
             </h1>
           </BlurFade>
 

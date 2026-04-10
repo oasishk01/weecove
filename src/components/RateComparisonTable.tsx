@@ -172,15 +172,15 @@ export function RateComparisonTable({
                 </div>
               </div>
 
-              {/* Loss indicator + CTA */}
+              {/* Savings indicator + CTA */}
               <div className="mt-2.5 flex items-center justify-between">
-                {diff > 0 ? (
-                  <span className="text-xs text-red-500 font-medium">
-                    ❌ <span className="line-through">HK${Math.round(diff * (amount / bestReceived))}</span> {yearlyLoss > 0 && `· HK$${Math.round(yearlyLoss * (amount / bestReceived))}{t("table.yearloss")}`}
-                  </span>
-                ) : (
+                {isBest ? (
                   <span className="text-xs text-emerald-600 font-medium">
                     ✓ {t("table.best")}
+                  </span>
+                ) : (
+                  <span className="text-xs text-zinc-400">
+                    {diff > 0 ? `${CURRENCY_SYMBOLS[to]}${diff.toLocaleString()} less received` : ""}
                   </span>
                 )}
                 <a

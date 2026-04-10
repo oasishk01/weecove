@@ -10,10 +10,10 @@ const translations: Record<string, Record<Locale, string>> = {
   "nav.language": { en: "中文", zh: "EN" },
 
   // Home
-  "home.badge": { en: "Did you know choosing wrong costs you money?", zh: "你知唔知揀錯匯款方法可以蝕幾多？" },
-  "home.hero1": { en: "Send HK$10,000 to Philippines", zh: "匯 HK$10,000 去菲律賓" },
-  "home.hero2": { en: "Wrong choice costs ₱2,816", zh: "揀錯蝕 ₱2,816" },
-  "home.sub": { en: "Compare 6 providers instantly. Find the cheapest way to send money from Hong Kong.", zh: "即時比較 6 間匯款平台嘅匯率同手續費。搵到最平嘅匯款方法。" },
+  "home.badge": { en: "We compare, so you don't have to", zh: "我哋幫你比較，你唔使逐間查" },
+  "home.hero1": { en: "Send more money home", zh: "匯更多錢返屋企" },
+  "home.hero2": { en: "We found you ₱2,816 more", zh: "我哋幫你多收 ₱2,816" },
+  "home.sub": { en: "Compare 6 providers in seconds. See exactly how much your family receives.", zh: "幾秒比較 6 間平台。即刻睇到屋企人收到幾多。" },
   "home.cta1": { en: "Compare Rates Now", zh: "即時比較匯率" },
   "home.cta2": { en: "🇵🇭 Send to Philippines", zh: "🇵🇭 匯去菲律賓" },
   "home.corridors": { en: "Popular corridors", zh: "熱門走廊" },
@@ -23,7 +23,7 @@ const translations: Record<string, Record<Locale, string>> = {
   "home.independent": { en: "Independent", zh: "獨立" },
   "home.independent.desc": { en: "Not owned by any money transfer company. Rankings based purely on data: whoever delivers the most money, ranks highest.", zh: "唔屬於任何匯款公司。排名純粹基於數據：邊間畀你收到最多錢，排最高。" },
   "home.transparent": { en: "Transparent", zh: "透明" },
-  "home.transparent.desc": { en: "Real exchange rates and fees shown. No more hidden costs behind 'zero fee' marketing.", zh: "顯示真實匯率同手續費。唔好再被「零手續費」呃。" },
+  "home.transparent.desc": { en: "Real exchange rates and fees shown. See exactly what you pay and what your family receives.", zh: "顯示真實匯率同手續費。清楚睇到你付幾多、屋企人收到幾多。" },
   "home.realtime": { en: "Updated", zh: "定期更新" },
   "home.realtime.desc": { en: "Rates checked regularly. Enter your amount and instantly see the difference.", zh: "匯率定期更新。輸入金額即刻睇到每間嘅差別。" },
   "home.warning": { en: "Did you know? Some comparison sites (like Exiap) are owned by money transfer companies. WeeCove is fully independent. Our only ranking criterion: who delivers the most money.", zh: "你知道嗎？某些匯款比較網站（例如 Exiap）實際上係被匯款公司擁有嘅。WeeCove 係完全獨立嘅。我哋嘅排名只基於一個標準：邊間畀你收到最多錢。" },
@@ -36,11 +36,11 @@ const translations: Record<string, Record<Locale, string>> = {
 
   // Table
   "table.yousend": { en: "You send", zh: "你匯" },
-  "table.savings": { en: "Choose the best, receive more", zh: "揀最平可以多收" },
-  "table.best": { en: "Best rate", zh: "最佳匯率" },
+  "table.savings": { en: "Your family receives more with the right choice", zh: "揀啱嘅話，屋企人多收" },
+  "table.best": { en: "Best value for you", zh: "最抵之選" },
   "table.sendnow": { en: "Send now →", zh: "立即匯款 →" },
-  "table.compare": { en: "Compare →", zh: "比較 →" },
-  "table.yearloss": { en: "/year lost", zh: "/年蝕" },
+  "table.compare": { en: "Learn more →", zh: "了解更多 →" },
+  "table.saveyear": { en: "/year saved", zh: "/年慳到" },
   "table.disclaimer": { en: "Rates are indicative and updated regularly. WeeCove is independent and not owned by any money transfer provider.", zh: "匯率僅供參考，定期更新。WeeCove 係獨立嘅，唔屬於任何匯款公司。" },
 
   // Clock
