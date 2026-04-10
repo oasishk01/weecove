@@ -91,20 +91,23 @@ export function RateComparisonTable({
           </div>
         )}
 
-        <label className="block text-[10px] font-medium text-zinc-400 uppercase tracking-wider mb-1">
+        <label className="block text-xs font-medium text-zinc-600 mb-2">
           {t("table.yousend")}
         </label>
-        <div className="flex items-center gap-2">
-          <span className="text-zinc-400 text-lg font-medium">{CURRENCY_SYMBOLS[from]}</span>
+        <div className="flex items-center gap-2 bg-white border border-zinc-300 rounded-lg px-3 py-2 focus-within:border-emerald-500 focus-within:ring-1 focus-within:ring-emerald-500 transition-all">
+          <span className="text-zinc-500 text-lg font-medium">{CURRENCY_SYMBOLS[from]}</span>
           <input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(Number(e.target.value) || 0)}
-            className="text-2xl font-bold bg-transparent border-none outline-none w-full text-zinc-900"
-            min={100}
-            step={1000}
+            type="text"
+            inputMode="numeric"
+            value={amount === 0 ? "" : amount.toLocaleString()}
+            onChange={(e) => {
+              const raw = e.target.value.replace(/[^0-9]/g, "");
+              setAmount(raw === "" ? 0 : parseInt(raw, 10));
+            }}
+            placeholder="10,000"
+            className="text-2xl font-bold bg-transparent border-none outline-none w-full text-zinc-900 placeholder:text-zinc-300"
           />
-          <span className="text-xs font-medium text-zinc-400 shrink-0">{from} → {to}</span>
+          <span className="text-xs font-medium text-zinc-400 shrink-0 bg-zinc-100 px-2 py-1 rounded">{from} → {to}</span>
         </div>
       </div>
 
