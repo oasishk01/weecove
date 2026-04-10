@@ -92,10 +92,26 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Independence note */}
-      <section className="px-6 py-6">
-        <div className="max-w-xl mx-auto">
-          <p className="text-[11px] text-zinc-400 text-center leading-relaxed">
+      {/* How we rank + How we make money */}
+      <section className="px-6 py-8">
+        <div className="max-w-xl mx-auto space-y-4">
+          <details className="group">
+            <summary className="text-xs font-medium text-zinc-600 cursor-pointer hover:text-zinc-900 transition-colors">
+              📊 How we rank providers
+            </summary>
+            <p className="text-[11px] text-zinc-500 mt-2 leading-relaxed pl-5">
+              {t("trust.methodology")}
+            </p>
+          </details>
+          <details className="group">
+            <summary className="text-xs font-medium text-zinc-600 cursor-pointer hover:text-zinc-900 transition-colors">
+              💰 How we make money
+            </summary>
+            <p className="text-[11px] text-zinc-500 mt-2 leading-relaxed pl-5">
+              {t("trust.howwemakemoney")}
+            </p>
+          </details>
+          <p className="text-[10px] text-zinc-400 text-center leading-relaxed">
             ⚠️ {t("home.warning")}
           </p>
         </div>
@@ -103,8 +119,7 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer className="px-6 py-6 border-t border-zinc-100">
-        <div className="max-w-3xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
-          <p className="text-zinc-400 text-[10px]">WeeCove · Independent remittance comparison · Hong Kong</p>
+        <div className="max-w-3xl mx-auto flex flex-col items-center gap-3">
           <div className="flex items-center gap-3 text-[10px] text-zinc-400">
             <Link href="/compare/hong-kong-remittance" className="hover:text-zinc-600">Guide</Link>
             <Link href="/compare/wise-remittance" className="hover:text-zinc-600">Wise</Link>
@@ -112,6 +127,7 @@ export default function LandingPage() {
             <Link href="/terms" className="hover:text-zinc-600">Terms</Link>
             <Link href="/privacy" className="hover:text-zinc-600">Privacy</Link>
           </div>
+          <p className="text-zinc-400 text-[10px]">{t("trust.footer")}</p>
         </div>
       </footer>
     </div>

@@ -50,6 +50,11 @@ const translations: Record<string, Record<Locale, string>> = {
   "alert.done": { en: "You're in. We'll email you when rates drop.", zh: "搞掂。匯率跌咗會 email 你。" },
   "alert.privacy": { en: "No spam. Unsubscribe anytime. WeeCove will never ask for your password, bank details, or payment information via email.", zh: "冇垃圾郵件。隨時退訂。WeeCove 絕不會透過 email 向你索取密碼、銀行資料或付款資訊。" },
 
+  // Trust
+  "trust.howwemakemoney": { en: "How we make money: when you choose a provider through our link, we may earn a small commission. This costs you nothing extra. It's how we keep WeeCove free.", zh: "我哋點賺錢：當你透過我哋嘅連結選擇匯款平台，我哋可能收到少量佣金。你唔使額外付費。呢個係 WeeCove 免費運作嘅方式。" },
+  "trust.footer": { en: "© 2026 Sobie Tech Limited · Hong Kong", zh: "© 2026 Sobie Tech Limited · 香港" },
+  "trust.methodology": { en: "Rankings are based on one thing: total amount received. The provider that delivers the most money to the recipient, after all fees and exchange rate markup, ranks first. No provider can pay to rank higher.", zh: "排名只基於一個標準：收到嘅總金額。扣除所有手續費同匯率差價後，畀收款人收到最多錢嘅平台排第一。任何平台都唔可以付費提高排名。" },
+
   // Clock
   "clock.checked": { en: "Last checked", zh: "上次更新" },
 };
