@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
+import { I18nProvider } from "@/lib/i18n";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -8,9 +9,9 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "WeeCove — 香港匯款比較 | HK Remittance Comparison",
+  title: "WeeCove — Hong Kong Remittance Comparison",
   description:
-    "獨立匯款比較工具。比較 Wise、Western Union、Remitly 嘅手續費同匯率，搵到最平嘅匯款方法。Independent remittance comparison for Hong Kong.",
+    "Independent remittance comparison tool. Compare Wise, Western Union, Remitly fees and rates. Find the cheapest way to send money from Hong Kong.",
   verification: {
     google: "s7HY1_X3uIAsp5RrTs4PlT0NJ7wM-Mb6sj2JTM2m0dQ",
   },
@@ -35,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} h-full`}>
       <body className="min-h-full flex flex-col bg-white text-zinc-900 antialiased">
-        {children}
+        <I18nProvider>{children}</I18nProvider>
       </body>
     </html>
   );
