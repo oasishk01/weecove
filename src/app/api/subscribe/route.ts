@@ -35,7 +35,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Too many requests" }, { status: 429 });
     }
 
-    const { email, corridor } = await request.json();
+    const { email, corridor, _hp } = await request.json();
+
+    // Honeypot check — bots fill hidden fields
+    if (_hp) {
+      return NextResponse.json({ ok: true }); // silent rejection
+    }
 
     // Basic validation
     if (!email || typeof email !== "string" || !email.includes("@") || email.length > 254) {

@@ -53,6 +53,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${geistSans.variable} h-full`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "WeeCove",
+              url: "https://weecove.com",
+              description: "Independent remittance comparison tool for Hong Kong",
+              publisher: {
+                "@type": "Organization",
+                name: "Sobie Tech Limited",
+                url: "https://weecove.com",
+              },
+            }),
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-white text-zinc-900 antialiased">
         <I18nProvider>{children}</I18nProvider>
       </body>
