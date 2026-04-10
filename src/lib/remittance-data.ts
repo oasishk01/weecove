@@ -271,19 +271,7 @@ export const PROVIDERS: Provider[] = [
       { from: "HKD", to: "PHP", rate: 7.55, fee: 10, markup: 1.3, speed: "1 day", method: "Bank transfer", updatedAt: "2026-04-10" },
     ],
   },
-  {
-    slug: "tng",
-    name: "TNG Wallet",
-    domain: "tng.com.hk",
-    brandColor: "#00A1E4",
-    tagline: "HK e-wallet, popular with helpers",
-    affiliateUrl: "https://www.tngwallet.hk",
-    trustpilot: "—",
-    corridors: [
-      { from: "HKD", to: "PHP", rate: 7.45, fee: 0, markup: 2.6, speed: "1 day", method: "Bank / GCash", updatedAt: "2026-04-10" },
-      { from: "HKD", to: "IDR", rate: 2070, fee: 0, markup: 2.4, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
-    ],
-  },
+  // TNG Wallet removed — service terminated June 2025
   // --- Crypto ---
   {
     slug: "okx",

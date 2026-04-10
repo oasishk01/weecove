@@ -19,7 +19,7 @@ export default function AboutPage() {
           <section>
             <h2 className="text-lg font-semibold text-zinc-900">What We Do</h2>
             <p className="mt-2">
-              WeeCove compares exchange rates and fees across 13+ money transfer providers for 12 currency corridors.
+              WeeCove compares exchange rates and fees across 12 money transfer providers for 12 currency corridors.
               We show you exactly how much your recipient receives after all fees and markup, so you can pick the best option.
             </p>
           </section>
