@@ -35,6 +35,9 @@ export let MID_MARKET_RATES: Record<string, number> = {
   "HKD-KRW": 184.5,
   "HKD-THB": 4.42,
   "HKD-GBP": 0.0985,
+  "HKD-AUD": 0.200,
+  "HKD-CAD": 0.179,
+  "HKD-USD": 0.1285,
 };
 
 export function updateMidMarketRates(newRates: Record<string, number>) {
@@ -65,6 +68,9 @@ export const PROVIDERS: Provider[] = [
       { from: "HKD", to: "KRW", rate: 184.5, fee: 65, markup: 0.0, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "THB", rate: 4.42, fee: 65, markup: 0.0, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "GBP", rate: 0.0985, fee: 55, markup: 0.0, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "AUD", rate: 0.200, fee: 55, markup: 0.0, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "CAD", rate: 0.179, fee: 55, markup: 0.0, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "USD", rate: 0.1285, fee: 40, markup: 0.0, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
     ],
   },
   {
@@ -85,6 +91,9 @@ export const PROVIDERS: Provider[] = [
       { from: "HKD", to: "KRW", rate: 177.0, fee: 0, markup: 4.1, speed: "Minutes", method: "Cash pickup", updatedAt: "2026-04-10" },
       { from: "HKD", to: "THB", rate: 4.24, fee: 0, markup: 4.1, speed: "Minutes", method: "Cash pickup", updatedAt: "2026-04-10" },
       { from: "HKD", to: "GBP", rate: 0.0945, fee: 0, markup: 4.1, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "AUD", rate: 0.192, fee: 0, markup: 4.0, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "CAD", rate: 0.172, fee: 0, markup: 3.9, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "USD", rate: 0.124, fee: 0, markup: 3.5, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
     ],
   },
   {
@@ -105,6 +114,9 @@ export const PROVIDERS: Provider[] = [
       { from: "HKD", to: "KRW", rate: 182.2, fee: 15, markup: 1.2, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "THB", rate: 4.36, fee: 15, markup: 1.4, speed: "1-2 days", method: "Bank / PromptPay", updatedAt: "2026-04-10" },
       { from: "HKD", to: "GBP", rate: 0.0972, fee: 15, markup: 1.3, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "AUD", rate: 0.198, fee: 15, markup: 1.0, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "CAD", rate: 0.177, fee: 15, markup: 1.1, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "USD", rate: 0.127, fee: 15, markup: 1.2, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
     ],
   },
   {
@@ -125,6 +137,9 @@ export const PROVIDERS: Provider[] = [
       { from: "HKD", to: "KRW", rate: 181.0, fee: 20, markup: 1.9, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "THB", rate: 4.34, fee: 20, markup: 1.8, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "GBP", rate: 0.0967, fee: 20, markup: 1.8, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "AUD", rate: 0.196, fee: 20, markup: 2.0, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "CAD", rate: 0.175, fee: 20, markup: 2.2, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "USD", rate: 0.126, fee: 20, markup: 1.9, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
     ],
   },
   {
@@ -145,6 +160,9 @@ export const PROVIDERS: Provider[] = [
       { from: "HKD", to: "KRW", rate: 183.2, fee: 0, markup: 0.7, speed: "1-3 days", method: "Bank transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "THB", rate: 4.39, fee: 0, markup: 0.7, speed: "1-3 days", method: "Bank transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "GBP", rate: 0.0978, fee: 0, markup: 0.7, speed: "1-3 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "AUD", rate: 0.199, fee: 0, markup: 0.5, speed: "1-3 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "CAD", rate: 0.178, fee: 0, markup: 0.6, speed: "1-3 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "USD", rate: 0.1278, fee: 0, markup: 0.5, speed: "1-3 days", method: "Bank transfer", updatedAt: "2026-04-10" },
     ],
   },
   {
@@ -165,6 +183,9 @@ export const PROVIDERS: Provider[] = [
       { from: "HKD", to: "KRW", rate: 183.8, fee: 5, markup: 0.4, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "THB", rate: 4.40, fee: 5, markup: 0.5, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "GBP", rate: 0.0981, fee: 5, markup: 0.4, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "AUD", rate: 0.199, fee: 5, markup: 0.4, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "CAD", rate: 0.178, fee: 5, markup: 0.4, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "USD", rate: 0.1280, fee: 5, markup: 0.4, speed: "1-2 days", method: "Bank transfer", updatedAt: "2026-04-10" },
     ],
   },
   // --- HK Local ---
@@ -186,6 +207,9 @@ export const PROVIDERS: Provider[] = [
       { from: "HKD", to: "KRW", rate: 176.0, fee: 100, markup: 4.6, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "THB", rate: 4.22, fee: 100, markup: 4.5, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "GBP", rate: 0.0942, fee: 100, markup: 4.4, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "AUD", rate: 0.191, fee: 150, markup: 4.5, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "CAD", rate: 0.171, fee: 150, markup: 4.5, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "USD", rate: 0.1279, fee: 50, markup: 0.5, speed: "1-2 days", method: "Wire transfer", updatedAt: "2026-04-10" },
     ],
   },
   {
@@ -206,6 +230,9 @@ export const PROVIDERS: Provider[] = [
       { from: "HKD", to: "KRW", rate: 175.5, fee: 80, markup: 4.9, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "THB", rate: 4.20, fee: 80, markup: 5.0, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "GBP", rate: 0.0940, fee: 80, markup: 4.6, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "AUD", rate: 0.190, fee: 120, markup: 5.0, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "CAD", rate: 0.170, fee: 120, markup: 5.0, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "USD", rate: 0.1278, fee: 50, markup: 0.5, speed: "1-2 days", method: "Wire transfer", updatedAt: "2026-04-10" },
     ],
   },
   {
@@ -226,6 +253,9 @@ export const PROVIDERS: Provider[] = [
       { from: "HKD", to: "KRW", rate: 175.8, fee: 100, markup: 4.7, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "THB", rate: 4.21, fee: 100, markup: 4.8, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "GBP", rate: 0.0941, fee: 100, markup: 4.5, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "AUD", rate: 0.190, fee: 150, markup: 5.0, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "CAD", rate: 0.170, fee: 150, markup: 5.0, speed: "2-5 days", method: "Wire transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "USD", rate: 0.1276, fee: 50, markup: 0.7, speed: "1-2 days", method: "Wire transfer", updatedAt: "2026-04-10" },
     ],
   },
   {
@@ -274,6 +304,9 @@ export const PROVIDERS: Provider[] = [
       { from: "HKD", to: "KRW", rate: 184.1, fee: 1, markup: 0.2, speed: "Minutes", method: "USDT transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "THB", rate: 4.41, fee: 1, markup: 0.2, speed: "Minutes", method: "USDT transfer", updatedAt: "2026-04-10" },
       { from: "HKD", to: "GBP", rate: 0.0983, fee: 1, markup: 0.2, speed: "Minutes", method: "USDT transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "AUD", rate: 0.1996, fee: 1, markup: 0.2, speed: "Minutes", method: "USDT transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "CAD", rate: 0.1786, fee: 1, markup: 0.2, speed: "Minutes", method: "USDT transfer", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "USD", rate: 0.1282, fee: 1, markup: 0.2, speed: "Minutes", method: "USDT transfer", updatedAt: "2026-04-10" },
     ],
   },
   {
@@ -295,6 +328,9 @@ export const PROVIDERS: Provider[] = [
       { from: "HKD", to: "KRW", rate: 183.9, fee: 0, markup: 0.3, speed: "Minutes", method: "USDT → P2P sell", updatedAt: "2026-04-10" },
       { from: "HKD", to: "THB", rate: 4.41, fee: 0, markup: 0.2, speed: "Minutes", method: "USDT → P2P sell", updatedAt: "2026-04-10" },
       { from: "HKD", to: "GBP", rate: 0.0982, fee: 0, markup: 0.3, speed: "Minutes", method: "USDT → P2P sell", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "AUD", rate: 0.1994, fee: 0, markup: 0.3, speed: "Minutes", method: "USDT → P2P sell", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "CAD", rate: 0.1784, fee: 0, markup: 0.3, speed: "Minutes", method: "USDT → P2P sell", updatedAt: "2026-04-10" },
+      { from: "HKD", to: "USD", rate: 0.1281, fee: 0, markup: 0.3, speed: "Minutes", method: "USDT → P2P sell", updatedAt: "2026-04-10" },
     ],
   },
 ];

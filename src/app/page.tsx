@@ -127,6 +127,9 @@ export default function LandingPage() {
             <Link href="/compare/hong-kong-remittance" className="hover:text-zinc-600">Guide</Link>
             <Link href="/compare/wise-remittance" className="hover:text-zinc-600">Wise</Link>
             <Link href="/compare/send-money-philippines" className="hover:text-zinc-600">HK→PH</Link>
+            <Link href="/compare/send-money-uk" className="hover:text-zinc-600">HK→UK</Link>
+            <Link href="/compare/send-money-japan" className="hover:text-zinc-600">HK→JP</Link>
+            <Link href="/compare/send-money-china" className="hover:text-zinc-600">HK→CN</Link>
             <Link href="/about" className="hover:text-zinc-600">About</Link>
             <Link href="/terms" className="hover:text-zinc-600">Terms</Link>
             <Link href="/privacy" className="hover:text-zinc-600">Privacy</Link>

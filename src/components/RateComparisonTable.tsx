@@ -9,7 +9,7 @@ import { useLiveRates } from "@/lib/useLiveRates";
 const CURRENCY_SYMBOLS: Record<string, string> = {
   HKD: "HK$", PHP: "₱", IDR: "Rp", INR: "₹",
   CNY: "¥", TWD: "NT$", JPY: "¥", KRW: "₩",
-  THB: "฿", GBP: "£",
+  THB: "฿", GBP: "£", AUD: "A$", CAD: "C$", USD: "$",
 };
 
 const CORRIDORS = [
@@ -20,6 +20,9 @@ const CORRIDORS = [
   { from: "HKD", to: "THB", label: "🇹🇭 Thailand (THB)" },
   { from: "HKD", to: "TWD", label: "🇹🇼 Taiwan (TWD)" },
   { from: "HKD", to: "GBP", label: "🇬🇧 UK (GBP)" },
+  { from: "HKD", to: "AUD", label: "🇦🇺 Australia (AUD)" },
+  { from: "HKD", to: "CAD", label: "🇨🇦 Canada (CAD)" },
+  { from: "HKD", to: "USD", label: "🇺🇸 USA (USD)" },
   { from: "HKD", to: "IDR", label: "🇮🇩 Indonesia (IDR)" },
   { from: "HKD", to: "INR", label: "🇮🇳 India (INR)" },
 ];
