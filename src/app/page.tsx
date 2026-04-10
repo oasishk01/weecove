@@ -29,6 +29,7 @@ export default function LandingPage() {
       </nav>
 
       {/* Tool — immediately */}
+      <main>
       <section className="px-6 pt-8 pb-4">
         <div className="max-w-xl mx-auto">
           <p className="text-sm text-zinc-500 mb-1">{t("home.sub")}</p>
@@ -53,7 +54,7 @@ export default function LandingPage() {
       {/* Provider strip */}
       <section className="px-6 py-6 border-t border-zinc-100">
         <div className="max-w-3xl mx-auto">
-          <p className="text-center text-[10px] font-medium text-zinc-400 uppercase tracking-widest mb-3">
+          <p className="text-center text-[10px] font-medium text-zinc-500 uppercase tracking-widest mb-3">
             {t("home.providers")}
           </p>
           <div className="flex items-center justify-center gap-4 flex-wrap">
@@ -66,7 +67,7 @@ export default function LandingPage() {
                   height={20}
                   className="w-5 h-5 rounded"
                 />
-                <span className="text-[11px] font-medium text-zinc-400">{p.name}</span>
+                <span className="text-[11px] font-medium text-zinc-500">{p.name}</span>
               </div>
             ))}
           </div>
@@ -111,23 +112,25 @@ export default function LandingPage() {
               {t("trust.howwemakemoney")}
             </p>
           </details>
-          <p className="text-[10px] text-zinc-400 text-center leading-relaxed">
+          <p className="text-[10px] text-zinc-500 text-center leading-relaxed">
             ⚠️ {t("home.warning")}
           </p>
         </div>
       </section>
 
+      </main>
+
       {/* Footer */}
       <footer className="px-6 py-6 border-t border-zinc-100">
         <div className="max-w-3xl mx-auto flex flex-col items-center gap-3">
-          <div className="flex items-center gap-3 text-[10px] text-zinc-400">
+          <div className="flex items-center gap-3 text-[10px] text-zinc-500">
             <Link href="/compare/hong-kong-remittance" className="hover:text-zinc-600">Guide</Link>
             <Link href="/compare/wise-remittance" className="hover:text-zinc-600">Wise</Link>
             <Link href="/compare/send-money-philippines" className="hover:text-zinc-600">HK→PH</Link>
             <Link href="/terms" className="hover:text-zinc-600">Terms</Link>
             <Link href="/privacy" className="hover:text-zinc-600">Privacy</Link>
           </div>
-          <p className="text-zinc-400 text-[10px]">{t("trust.footer")}</p>
+          <p className="text-zinc-500 text-[10px]">{t("trust.footer")}</p>
         </div>
       </footer>
     </div>

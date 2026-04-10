@@ -81,7 +81,7 @@ function ProviderRow({
           {rating > 0 && (
             <div className="flex items-center gap-1.5 mt-0.5">
               <Stars rating={rating} />
-              <span className="text-[10px] text-zinc-400">{provider.trustpilot}</span>
+              <span className="text-[10px] text-zinc-500">{provider.trustpilot}</span>
             </div>
           )}
           <span className="text-[10px] text-zinc-500 mt-0.5 block">
@@ -92,7 +92,7 @@ function ProviderRow({
           <div className={`text-lg font-bold ${isBest ? "text-emerald-700" : "text-zinc-900"}`}>
             {CURRENCY_SYMBOLS[to]}{result.received.toLocaleString()}
           </div>
-          <div className="text-[10px] text-zinc-400">
+          <div className="text-[10px] text-zinc-500">
             Fee {CURRENCY_SYMBOLS[from]}{result.fee}
           </div>
         </div>
@@ -101,7 +101,7 @@ function ProviderRow({
         {isBest ? (
           <span className="text-xs text-emerald-600 font-medium">✓ {t("table.best")}</span>
         ) : (
-          <span className="text-xs text-zinc-400">
+          <span className="text-xs text-zinc-500">
             {diff > 0 ? `${CURRENCY_SYMBOLS[to]}${diff.toLocaleString()} less` : ""}
           </span>
         )}
@@ -153,10 +153,11 @@ export function RateComparisonTable({
       <div className="bg-gradient-to-r from-zinc-50 to-white p-4 border-b border-zinc-200">
         {showCorridorPicker && (
           <div className="mb-3">
-            <label className="block text-[10px] font-medium text-zinc-400 uppercase tracking-wider mb-1">
+            <label htmlFor="corridor-select" className="block text-[10px] font-medium text-zinc-500 uppercase tracking-wider mb-1">
               Destination
             </label>
             <select
+              id="corridor-select"
               value={`${corridor.from}-${corridor.to}`}
               onChange={(e) => {
                 const [f, t] = e.target.value.split("-");
@@ -269,7 +270,7 @@ export function RateComparisonTable({
 
       {/* Disclaimer */}
       <div className="px-4 py-2.5 bg-zinc-50 border-t border-zinc-200">
-        <p className="text-[10px] text-zinc-400 leading-relaxed">
+        <p className="text-[10px] text-zinc-500 leading-relaxed">
           {t("table.disclaimer")}
         </p>
       </div>
