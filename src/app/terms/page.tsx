@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { Logo } from "@/components/Logo";
 
 export const metadata: Metadata = {
   title: "Terms of Service — WeeCove",
@@ -10,7 +11,7 @@ export default function TermsPage() {
   return (
     <div className="min-h-full bg-white">
       <div className="px-6 pt-12 pb-16 max-w-2xl mx-auto">
-        <Link href="/" className="text-emerald-600 font-bold text-xl">WeeCove</Link>
+        <Logo />
         <h1 className="text-3xl font-bold mt-8">Terms of Service</h1>
         <p className="text-zinc-400 text-sm mt-2">Last updated: April 10, 2026</p>
 

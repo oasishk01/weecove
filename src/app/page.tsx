@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { PROVIDERS, getProviderLogo } from "@/lib/remittance-data";
+import { Logo } from "@/components/Logo";
 import { StatsCounter, TodayCounter } from "@/components/StatsCounter";
 import { LiveClock } from "@/components/LiveClock";
 import { RateComparisonTable } from "@/components/RateComparisonTable";
@@ -17,10 +18,7 @@ export default function LandingPage() {
       {/* Nav */}
       <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-zinc-100">
         <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-1">
-            <Image src="/otter-head.png" alt="" width={40} height={34} className="h-7 w-auto" />
-            <span className="text-emerald-600 font-bold text-lg tracking-tight">WeeCove</span>
-          </Link>
+          <Logo />
           <div className="flex items-center gap-3">
             <LiveClock />
             <LanguageToggle />
