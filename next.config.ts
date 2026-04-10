@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      { hostname: "www.google.com" },
+    ],
+  },
   async headers() {
     return [
       {

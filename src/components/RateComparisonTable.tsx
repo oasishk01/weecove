@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { getBestProviders } from "@/lib/remittance-data";
+import Image from "next/image";
+import { getBestProviders, getProviderLogo } from "@/lib/remittance-data";
 
 const CURRENCY_NAMES: Record<string, string> = {
   HKD: "Hong Kong Dollar",
@@ -69,12 +70,13 @@ export function RateComparisonTable({
                     BEST
                   </span>
                 )}
-                <span
-                  className="w-9 h-9 rounded-lg flex items-center justify-center text-xs font-bold shrink-0"
-                  style={{ backgroundColor: provider.brandColor, color: provider.textColor }}
-                >
-                  {provider.logo}
-                </span>
+                <Image
+                  src={getProviderLogo(provider.domain)}
+                  alt={provider.name}
+                  width={36}
+                  height={36}
+                  className="w-9 h-9 rounded-lg shrink-0"
+                />
                 <div>
                   <div className="font-semibold text-zinc-900">{provider.name}</div>
                   <div className="text-xs text-zinc-500">{provider.trustpilot}</div>

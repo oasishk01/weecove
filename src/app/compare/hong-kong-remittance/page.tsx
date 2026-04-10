@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { RateComparisonTable } from "@/components/RateComparisonTable";
-import { PROVIDERS } from "@/lib/remittance-data";
+import { PROVIDERS, getProviderLogo } from "@/lib/remittance-data";
 
 export const metadata: Metadata = {
   title: "香港海外匯款比較 (2026) — 最平匯款方法 | Hong Kong Remittance Guide | WeeCove",
@@ -150,7 +151,7 @@ export default function HongKongRemittancePage() {
           {PROVIDERS.map((p) => (
             <div key={p.slug} className="border border-zinc-200 rounded-lg p-4">
               <div className="flex items-center gap-3 mb-2">
-                <span className="text-2xl">{p.logo}</span>
+                <Image src={getProviderLogo(p.domain)} alt={p.name} width={32} height={32} className="w-8 h-8 rounded" />
                 <h3 className="font-bold text-zinc-900">{p.name}</h3>
                 <span className="text-xs text-zinc-500">{p.trustpilot}</span>
               </div>

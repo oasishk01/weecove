@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { BlurFade } from "@/components/ui/blur-fade";
-import { PROVIDERS } from "@/lib/remittance-data";
+import { PROVIDERS, getProviderLogo } from "@/lib/remittance-data";
 
 export default function LandingPage() {
   return (
@@ -116,12 +116,13 @@ export default function LandingPage() {
             {PROVIDERS.map((p, i) => (
               <BlurFade key={p.slug} delay={0.15 + i * 0.05}>
                 <div className="bg-zinc-50 rounded-xl p-4 text-center border border-zinc-200/60">
-                  <span
-                    className="inline-flex w-10 h-10 rounded-lg items-center justify-center text-xs font-bold mx-auto"
-                    style={{ backgroundColor: p.brandColor, color: p.textColor }}
-                  >
-                    {p.logo}
-                  </span>
+                  <Image
+                    src={getProviderLogo(p.domain)}
+                    alt={p.name}
+                    width={40}
+                    height={40}
+                    className="w-10 h-10 rounded-lg mx-auto"
+                  />
                   <p className="font-bold text-zinc-900 mt-2">{p.name}</p>
                   <p className="text-xs text-zinc-500 mt-1">{p.trustpilot}</p>
                 </div>
