@@ -24,17 +24,22 @@ export interface Provider {
   corridors: Corridor[];
 }
 
-export const MID_MARKET_RATES: Record<string, number> = {
-  "HKD-PHP": 7.6516,  // verified from Wise 2026-04-10
+// Fallback rates — overwritten by live API data when available
+export let MID_MARKET_RATES: Record<string, number> = {
+  "HKD-PHP": 7.6516,
   "HKD-IDR": 2120,
   "HKD-INR": 10.95,
-  "HKD-CNY": 0.8719,  // verified from Wise 2026-04-10
+  "HKD-CNY": 0.8719,
   "HKD-TWD": 4.18,
   "HKD-JPY": 18.55,
   "HKD-KRW": 184.5,
   "HKD-THB": 4.42,
   "HKD-GBP": 0.0985,
 };
+
+export function updateMidMarketRates(newRates: Record<string, number>) {
+  MID_MARKET_RATES = { ...MID_MARKET_RATES, ...newRates };
+}
 
 export function getProviderLogo(domain: string, size = 64) {
   return `https://www.google.com/s2/favicons?domain=${domain}&sz=${size}`;

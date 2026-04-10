@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { getBestProviders, getProviderLogo, type Provider } from "@/lib/remittance-data";
+import { getBestProviders, getProviderLogo, updateMidMarketRates, type Provider } from "@/lib/remittance-data";
 import { useI18n } from "@/lib/i18n";
+import { useLiveRates } from "@/lib/useLiveRates";
 
 const CURRENCY_SYMBOLS: Record<string, string> = {
   HKD: "HK$", PHP: "₱", IDR: "Rp", INR: "₹",
@@ -133,11 +134,15 @@ export function RateComparisonTable({
   showCorridorPicker?: boolean;
 }) {
   const { t } = useI18n();
+  const { rates: liveRates } = useLiveRates();
   const [amount, setAmount] = useState(defaultAmount);
   const [corridor, setCorridor] = useState({ from: defaultFrom, to: defaultTo });
   const [showCrypto, setShowCrypto] = useState(false);
   const from = showCorridorPicker ? corridor.from : defaultFrom;
   const to = showCorridorPicker ? corridor.to : defaultTo;
+
+  // Update mid-market rates with live data when available
+  if (liveRates) updateMidMarketRates(liveRates);
 
   const { traditional, crypto } = getBestProviders(from, to, amount);
   const bestReceived = traditional[0]?.result?.received ?? 0;
